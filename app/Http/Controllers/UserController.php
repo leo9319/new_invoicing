@@ -21,10 +21,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(5);
+        $data['users'] = User::all();
 
-        return view('users.index',compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('users.index', $data);
     }
 
 
@@ -35,8 +34,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
-        return view('users.create',compact('roles'));
+        $data['roles'] = Role::pluck('name', 'name')->all();
+
+        return view('users.create', $roles);
     }
 
 
@@ -77,8 +77,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('users.show',compact('user'));
+        $data['user'] = User::find($id);
+
+        return view('users.show', $data);
     }
 
 

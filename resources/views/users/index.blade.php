@@ -2,6 +2,17 @@
 
 @section('title', 'All Users') 
 
+@section('header_scripts')
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#users').DataTable();
+    } );
+</script>
+@stop
+
 @section('content')
 
 <div class="app-main__inner">
@@ -15,9 +26,14 @@
                         </div>
                     </div>
                 </div>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                  <p>{{ $message }}</p>
+                </div>
+                @endif
                 <div class="table-responsive">
                     <div class="container">
-                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                        <table id="users" class="align-middle mb-0 table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>ID.</th>
@@ -56,5 +72,12 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('footer_scripts')
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 @endsection

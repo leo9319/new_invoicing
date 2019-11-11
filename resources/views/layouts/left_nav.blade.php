@@ -38,10 +38,15 @@
                         <i class="metismenu-icon pe-7s-rocket"></i> Dashboard
                     </a>
                 </li>
-                <li class="app-sidebar__heading">Users</li>
+                <li class="app-sidebar__heading">Users, Roles and Permissions</li>
                 <li>
                     <a href="{{ route('users.index') }}">
                         <i class="metismenu-icon pe-7s-users"></i> All Users
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('roles.index') }}">
+                        <i class="metismenu-icon pe-7s-network"></i> Roles
                     </a>
                 </li>
                 <li>

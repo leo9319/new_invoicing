@@ -48,6 +48,10 @@
 
             .title {
                 font-size: 84px;
+                color: black;
+                border: 1px solid;
+                border-radius: 10px;
+
             }
 
             .links > a {
@@ -83,7 +87,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Purple Invoice
+                    Welcome to Purple
                 </div>
 
 {{--                 <div class="links">

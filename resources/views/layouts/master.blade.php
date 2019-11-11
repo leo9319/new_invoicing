@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('images/favicon.png') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     @yield('header_scripts')
 </head>
 
