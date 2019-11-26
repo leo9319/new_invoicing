@@ -49,7 +49,7 @@
                         <i class="metismenu-icon pe-7s-network"></i> Roles
                     </a>
                 </li>
-                <li>
+{{--                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-diamond"></i> Others
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
@@ -182,11 +182,16 @@
                     <a href="tables-regular.html">
                         <i class="metismenu-icon pe-7s-display2"></i> Others
                     </a>
-                </li>
-                <li class="app-sidebar__heading">Widgets</li>
+                </li> --}}
+                <li class="app-sidebar__heading">Products and Inventories</li>
                 <li>
                     <a href="dashboard-boxes.html">
-                        <i class="metismenu-icon pe-7s-display2"></i> Dashboard Boxes
+                        <i class="metismenu-icon pe-7s-display2"></i> Products
+                    </a>
+                </li>
+                <li>
+                    <a href="dashboard-boxes.html">
+                        <i class="metismenu-icon pe-7s-display2"></i> Inventories
                     </a>
                 </li>
                 <li class="app-sidebar__heading">Forms</li>

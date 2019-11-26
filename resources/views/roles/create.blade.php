@@ -18,7 +18,7 @@
                       </div>
                     @endif
                     <h5 class="card-title">Please provide the necessary information</h5>
-                    {{ Form::open(['route'=>'users.store', 'autocomplete'=>'off']) }}
+                    {{ Form::open(['route'=>'roles.store', 'autocomplete'=>'off']) }}
 
                         <div class="form-row">
 

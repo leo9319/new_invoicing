@@ -48,14 +48,19 @@
 
             .title {
                 font-size: 84px;
-                color: black;
-                border: 1px solid;
+                color: #ffffff;
+                border: 1px solid black;
                 border-radius: 10px;
+                background-color: #111;
+                padding: 0px 10px 0px 10px;
+                border-radius: 20px;
+                opacity: 0.5;
+
 
             }
 
             .links > a {
-                color: #636b6f;
+                color: #ffffff;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -87,7 +92,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Welcome to Purple
+                    AURA
                 </div>
 
 {{--                 <div class="links">
