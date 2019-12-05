@@ -14,7 +14,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $data['brands'] = Brand::all();
+
+        return view('brands.index', $data);
     }
 
     /**
@@ -24,7 +26,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('brands.create');
     }
 
     /**
@@ -35,7 +37,18 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $brand = new Brand;
+
+        $brand->name = $request->name;
+        $brand->timestamps = false;
+        $brand->save();
+
+        return redirect()->route('brands.index')
+                        ->with('success','Brand created successfully');
     }
 
     /**
@@ -57,7 +70,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('brands.edit', compact('brand'));
     }
 
     /**
@@ -67,9 +80,19 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $brand = Brand::find($id);
+        $brand->timestamps = false;
+        $brand->name = $request->input('name');
+        $brand->save();
+
+        return redirect()->route('brands.index')
+                        ->with('success','Brand updated successfully');
     }
 
     /**
@@ -80,6 +103,8 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return redirect()->route('brands.index')
+                        ->with('success','Brand deleted successfully');
     }
 }

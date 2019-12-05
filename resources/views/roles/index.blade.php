@@ -39,9 +39,12 @@
                                     <th>ID.</th>
                                     <th>Name</th>
                                     <th>Permissions</th>
-                                    @can('role-edit') @can('role-delete')
+                                    @can('role-edit')
                                     <th>Actions</th>
-                                    @endcan @endcan
+                                    @endcan
+                                    @can('role-delete')
+                                    <th>Actions</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,16 +57,18 @@
                                             <label class="badge badge-info">{{ $permission->name }}</label>
                                         @endforeach
                                     </td>
-                                    <td>
-                                        @can('role-edit')
+                                    @can('role-edit')
+                                        <td>
                                             <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-                                        @endcan
-                                        @can('role-delete')
+                                        </td>
+                                    @endcan
+                                    @can('role-delete')
+                                        <td>
                                             {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
-                                        @endcan
-                                    </td>
+                                        </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -19,6 +19,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware(['role:Super Admin|Admin']);
+    }
+
     public function index()
     {
         $data['users'] = User::all();

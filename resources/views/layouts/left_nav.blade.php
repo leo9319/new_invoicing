@@ -38,6 +38,7 @@
                         <i class="metismenu-icon pe-7s-rocket"></i> Dashboard
                     </a>
                 </li>
+                @hasanyrole('Super Admin|Admin')
                 <li class="app-sidebar__heading">Users, Roles and Permissions</li>
                 <li>
                     <a href="{{ route('users.index') }}">
@@ -49,11 +50,13 @@
                         <i class="metismenu-icon pe-7s-network"></i> Roles
                     </a>
                 </li>
+                
                 <li>
                     <a href="{{ route('permissions.index') }}">
                         <i class="metismenu-icon pe-7s-unlock"></i> Permissions
                     </a>
                 </li>
+                @endrole
 {{--                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-diamond"></i> Others
@@ -190,8 +193,8 @@
                 </li> --}}
                 <li class="app-sidebar__heading">Products, Brands and Inventories</li>
                 <li>
-                    <a href="dashboard-boxes.html">
-                        <i class="metismenu-icon pe-7s-display2"></i> Brands
+                    <a href="{{ route('brands.index') }}">
+                        <i class="metismenu-icon pe-7s-science"></i> Brands
                     </a>
                 </li>
                 <li>

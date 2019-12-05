@@ -12,6 +12,11 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware(['role:Super Admin']);
+    }
+
     public function index()
     {
         $data['permissions'] = Permission::all();
