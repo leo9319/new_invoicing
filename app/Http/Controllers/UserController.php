@@ -19,7 +19,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $data['users'] = User::all();
 
@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $data['roles'] = Role::pluck('name', 'name')->all();
 
-        return view('users.create', $roles);
+        return view('users.create', $data);
     }
 
 

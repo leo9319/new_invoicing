@@ -5,7 +5,7 @@
 <div class="app-main__inner">
     <div class="tab-content">
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-            <div class="main-card mb-3 card">
+            <div class="main-card mb-3 p-4 card">
                 <div class="card-body">
                     @if (count($errors) > 0)
                       <div class="alert alert-danger">

@@ -49,6 +49,11 @@
                         <i class="metismenu-icon pe-7s-network"></i> Roles
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('permissions.index') }}">
+                        <i class="metismenu-icon pe-7s-unlock"></i> Permissions
+                    </a>
+                </li>
 {{--                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-diamond"></i> Others
@@ -183,7 +188,12 @@
                         <i class="metismenu-icon pe-7s-display2"></i> Others
                     </a>
                 </li> --}}
-                <li class="app-sidebar__heading">Products and Inventories</li>
+                <li class="app-sidebar__heading">Products, Brands and Inventories</li>
+                <li>
+                    <a href="dashboard-boxes.html">
+                        <i class="metismenu-icon pe-7s-display2"></i> Brands
+                    </a>
+                </li>
                 <li>
                     <a href="dashboard-boxes.html">
                         <i class="metismenu-icon pe-7s-display2"></i> Products

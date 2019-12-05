@@ -19,21 +19,25 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">All Users
+                <div class="card-header mb-3">All Users
                     <div class="btn-actions-pane-right">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-                        </div>
+
+                        @can('user-create')
+                            <div role="group" class="btn-group-sm btn-group">
+                                <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+                            </div>
+                        @endcan
+
                     </div>
                 </div>
                 @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                  <p>{{ $message }}</p>
-                </div>
+                    <div class="alert alert-success">
+                      <p>{{ $message }}</p>
+                    </div>
                 @endif
                 <div class="table-responsive">
                     <div class="container">
-                        <table id="users" class="align-middle mb-0 table table-bordered table-striped table-hover">
+                        <table id="users" class="align-middle table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>ID.</th>
@@ -58,7 +62,10 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a> {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!} {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!} {!! Form::close() !!}
+                                        <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a> 
+                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!} 
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!} 
+                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
                                 @endforeach
