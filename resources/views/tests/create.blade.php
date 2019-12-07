@@ -1,5 +1,7 @@
 @extends('layouts.master') 
 
+@section('title', 'Create Title') 
+
 @section('content')
 
 <div class="app-main__inner">

@@ -19,13 +19,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">Tests
-                    <div class="btn-actions-pane-right">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <a class="btn btn-success" href="#"> Create New</a>
-                        </div>
-                    </div>
-                </div>
+                <div class="card-header">Tests</div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                   <p>{{ $message }}</p>

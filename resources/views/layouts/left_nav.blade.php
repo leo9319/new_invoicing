@@ -198,13 +198,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="dashboard-boxes.html">
-                        <i class="metismenu-icon pe-7s-display2"></i> Products
+                    <a href="{{ route('products.index') }}">
+                        <i class="metismenu-icon pe-7s-box2"></i> Products
                     </a>
                 </li>
                 <li>
-                    <a href="dashboard-boxes.html">
-                        <i class="metismenu-icon pe-7s-display2"></i> Inventories
+                    <a href="{{ route('inventories.index') }}">
+                        <i class="metismenu-icon pe-7s-box1"></i> Inventories
                     </a>
                 </li>
                 <li class="app-sidebar__heading">Forms</li>
