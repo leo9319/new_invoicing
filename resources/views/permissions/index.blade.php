@@ -8,7 +8,7 @@
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#test').DataTable();
+        $('#permissions').DataTable();
     } );
 </script>
 @stop
@@ -37,7 +37,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="container">
-                            <table id="users" class="align-middle mb-0 table table-bordered table-striped table-hover">
+                            <table id="permissions" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID.</th>

@@ -191,7 +191,28 @@
                         <i class="metismenu-icon pe-7s-display2"></i> Others
                     </a>
                 </li> --}}
+
                 <li class="app-sidebar__heading">Products, Brands and Inventories</li>
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-gift"></i> Offers
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="components-tabs.html">
+                                <i class="metismenu-icon">
+                                    </i>Vouchers
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('discounts.index') }}">
+                                <i class="metismenu-icon">
+                                    </i>Discounts
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="{{ route('brands.index') }}">
                         <i class="metismenu-icon pe-7s-science"></i> Brands
@@ -207,17 +228,17 @@
                         <i class="metismenu-icon pe-7s-box1"></i> Inventories
                     </a>
                 </li>
-                <li class="app-sidebar__heading">Forms</li>
+                <li class="app-sidebar__heading">Sales</li>
                 <li>
                     <a href="forms-controls.html">
                         <i class="metismenu-icon pe-7s-mouse">
-                            </i>Forms Controls
+                            </i>Vouchers 
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="metismenu-icon pe-7s-eyedropper">
-                            </i>Forms Layouts
+                            </i>Discounts
                     </a>
                 </li>
                 <li>

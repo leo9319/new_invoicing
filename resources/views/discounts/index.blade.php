@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'Test') 
+@section('title', 'Discount') 
 
 @section('header_scripts')
 
@@ -8,7 +8,7 @@
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#tests').DataTable();
+        $('#discounts').DataTable();
     } );
 </script>
 @stop
@@ -20,10 +20,10 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Tests
+                <div class="card-header">Discounts
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
-                            <a class="btn btn-success" href="{{ route('tests.create') }}"> Create New</a>
+                            <a class="btn btn-success" href="{{ route('discounts.create') }}">Add Discount</a>
                         </div>
                     </div>
                 </div>
@@ -37,22 +37,32 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="container">
-                            <table id="tests" class="align-middle mb-0 table table-bordered table-striped table-hover">
+                            <table id="discounts" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID.</th>
+                                        <th>Starts</th>
+                                        <th>Ends</th>
                                         <th>Name</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Percentage</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($tests as $index => $test)
+                                    @foreach($discounts as $index => $discount)
                                     <tr>
                                         <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $test->name }}</td>
+                                        <td>{{ $discount->start_date }}</td>
+                                        <td>{{ $discount->end_date }}</td>
+                                        <td>{{ $discount->name }}</td>
+                                        <td>{{ $discount->product->name }}</td>
+                                        <td>{{ $discount->amount ?? 'N/A' }}</td>
+                                        <td>{{ $discount->percentage ?? 'N/A' }}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{ route('tests.edit', $test->id) }}">Edit</a>
-                                            {!! Form::open(['method' => 'DELETE','route' => ['tests.destroy', $test->id],'style'=>'display:inline']) !!}
+                                            <a class="btn btn-primary" href="{{ route('discounts.edit', $discount->id) }}">Edit</a>
+                                            {!! Form::open(['method' => 'DELETE','route' => ['discounts.destroy', $discount->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
                                         </td>

@@ -19,8 +19,6 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/get-product', 'ProductController@getProduct');
-
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('tests','TestController');
     Route::resource('roles','RoleController');
@@ -29,4 +27,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('brands','BrandController');
     Route::resource('products','ProductController');
     Route::resource('inventories','InventoryController');
+    Route::resource('discounts','DiscountController');
 });
