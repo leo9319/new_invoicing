@@ -101,6 +101,8 @@
                                         </div>
                                     </div>
                                 </discount-percentage>
+
+                                {{ Form::submit('Update', ['class'=>"mt-3 mr-2 btn btn-info btn-lg btn-block"]) }}
     
                             </div>
                         </div>
@@ -133,8 +135,8 @@
         el: '#app',
 
         data: {
-            amount: false,
-            percentage: false,
+            amount: {!! json_encode($discount->type) !!} == "amount" ? true : false,
+            percentage: {!! json_encode($discount->type) !!} == "percentage" ? true : false,
             product_id: {{ $discount->product_id }},
         },
 
@@ -144,7 +146,9 @@
                 this.amount = false;
                 this.percentage = false;
                 document.getElementById("amount").required = false;
+                document.getElementById("amount").value = '';
                 document.getElementById("percentage").required = false;
+                document.getElementById("percentage").value = '';
 
                 if(event.target.value == 'amount') {
                     this.amount = true;
@@ -157,12 +161,8 @@
             }
         },
 
-        mounted() {
-            var test = {{ $discount->type }};
-            alert(test);
-        }
-
     });
+
 </script>
 
 @endsection

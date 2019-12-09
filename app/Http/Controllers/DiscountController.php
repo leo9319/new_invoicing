@@ -86,7 +86,24 @@ class DiscountController extends Controller
      */
     public function update(Request $request, Discount $discount)
     {
-        //
+        $this->validate($request, [
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'type' => 'required'
+        ]);
+
+        $discount = Discount::find($discount->id);
+        $discount->start_date = $request->input('start_date');
+        $discount->end_date = $request->input('end_date');
+        $discount->product_id = $request->input('product_id');
+        $discount->name = $request->input('name');
+        $discount->type = $request->input('type');
+        $discount->amount = $request->input('amount');
+        $discount->percentage = $request->input('percentage');
+        $discount->save();
+
+        return redirect()->route('discounts.index')
+                        ->with('success','Discount updated successfully');
     }
 
     /**
