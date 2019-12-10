@@ -200,7 +200,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="components-tabs.html">
+                            <a href="{{ route('vouchers.index') }}">
                                 <i class="metismenu-icon">
                                     </i>Vouchers
                             </a>
