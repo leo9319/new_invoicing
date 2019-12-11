@@ -214,6 +214,10 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="{{ route('district-and-zones.index') }}">
+                        <i class="metismenu-icon pe-7s-science"></i> District and Zones
+                    </a>
+                </li><li>
                     <a href="{{ route('brands.index') }}">
                         <i class="metismenu-icon pe-7s-science"></i> Brands
                     </a>

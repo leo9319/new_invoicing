@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('inventories','InventoryController');
     Route::resource('discounts','DiscountController');
     Route::resource('vouchers','VoucherController');
+    Route::resource('district-and-zones','DistrictAndZoneController');
 });
