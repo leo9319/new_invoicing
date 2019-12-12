@@ -214,13 +214,44 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('district-and-zones.index') }}">
-                        <i class="metismenu-icon pe-7s-science"></i> District and Zones
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-plane"></i> Deliveries
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                </li><li>
-                    <a href="{{ route('brands.index') }}">
+                    <ul>
+                        <li>
+                            <a href="{{ route('delivery-companies.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> Delivery Companies
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('district-and-zones.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> District and Zones
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
                         <i class="metismenu-icon pe-7s-science"></i> Brands
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('brands.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> Brands
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('brand-users.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> Brand Managers
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('products.index') }}">
