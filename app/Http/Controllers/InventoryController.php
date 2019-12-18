@@ -114,4 +114,11 @@ class InventoryController extends Controller
         return redirect()->route('inventories.index')
                         ->with('success','Inventory removed successfully');
     }
+
+    public function getProduct(Request $request)
+    {
+        $product = Inventory::where('product_id', $request->id)->first();
+
+        return response()->json($product);
+    }
 }

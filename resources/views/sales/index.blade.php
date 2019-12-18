@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'Brand Manager') 
+@section('title', 'Sale') 
 
 @section('header_scripts')
 
@@ -8,7 +8,7 @@
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#users').DataTable();
+        $('#sales').DataTable();
     } );
 </script>
 @stop
@@ -20,10 +20,10 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Brand Manager
+                <div class="card-header">Sales
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
-                            <a class="btn btn-success" href="{{ route('brand-users.create') }}"> Set Brand Manager</a>
+                            <a class="btn btn-success" href="{{ route('sales.create') }}"> Create Invoice</a>
                         </div>
                     </div>
                 </div>
@@ -37,29 +37,23 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="container">
-                            <table id="users" class="align-middle mb-0 table table-bordered table-striped table-hover">
+                            <table id="sales" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID.</th>
-                                        <th>Brand Manager</th>
-                                        <th>Brand(s)</th>
+                                        <th>Name</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($users as $index => $user)
+                                    @foreach($sales as $index => $sale)
                                     <tr>
                                         <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        @forelse($user->brands as $brand)
-                                        @php $brands[] = $brand->name; @endphp
-                                        @empty
-                                        @php $brands[] = ''; @endphp
-                                        @endforelse
-                                        <td>{{ implode(", ", $brands) }}</td>
+                                        <td>{{ $sale->name }}</td>
                                         <td>
-                                            {!! Form::open(['method' => 'DELETE','route' => ['brand-users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                                    {!! Form::submit('Remove Brands', ['class' => 'btn btn-danger']) !!}
+                                            <a class="btn btn-primary" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
+                                            {!! Form::open(['method' => 'DELETE','route' => ['sales.destroy', $sale->id],'style'=>'display:inline']) !!}
+                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>

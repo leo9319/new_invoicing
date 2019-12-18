@@ -32,4 +32,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('vouchers','VoucherController');
     Route::resource('district-and-zones','DistrictAndZoneController');
     Route::resource('delivery-companies','DeliveryCompanyController');
+    Route::resource('sales','SaleController');
 });
+
+Route::get('/get-product', 'InventoryController@getProduct');
+Route::get('/table', 'TestController@table');

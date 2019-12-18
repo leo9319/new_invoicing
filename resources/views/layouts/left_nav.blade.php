@@ -265,9 +265,29 @@
                 </li>
                 <li class="app-sidebar__heading">Sales</li>
                 <li>
-                    <a href="forms-controls.html">
-                        <i class="metismenu-icon pe-7s-mouse">
-                            </i>Vouchers 
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-note2"></i> Invoice
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('sales.index') }}">
+                                <i class="metismenu-icon">
+                                    </i>Create Invoice 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="metismenu-icon">
+                                    </i> Brand Managers
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route('sales.index') }}">
+                        <i class="metismenu-icon pe-7s-note2">
+                            </i>Create Invoice 
                     </a>
                 </li>
                 <li>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Sale;
+use App\Voucher;
+use App\Discount;
+use App\Product;
 use Illuminate\Http\Request;
-use App\Test;
 
-class TestController extends Controller
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,10 @@ class TestController extends Controller
      */
     public function index()
     {
-        $data['tests'] = Test::all();
+        $data['sales'] = Sale::all();
+        
 
-        return view('tests.index', $data);
+        return view('sales.index', $data);
     }
 
     /**
@@ -26,7 +30,11 @@ class TestController extends Controller
      */
     public function create()
     {
-        return view('tests.create');
+        $data['vouchers'] = Voucher::all();
+        $data['discounts'] = Discount::all();
+        $data['products'] = Product::all();
+
+        return view('sales.create', $data);
     }
 
     /**
@@ -41,19 +49,19 @@ class TestController extends Controller
             'name' => 'required',
         ]);
 
-        Test::create($request->all());
+        Sale::create($request->all());
 
-        return redirect()->route('tests.index')
-                        ->with('success','Test created successfully');
+        return redirect()->route('sales.index')
+                        ->with('success','Sale created successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sale $sale)
     {
         //
     }
@@ -61,51 +69,46 @@ class TestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(Sale $sale)
     {
-        return view('tests.edit', compact('test'));
+        return view('sales.edit', compact('sale'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sale $sale)
     {
         $this->validate($request, [
             'name' => 'required'
         ]);
 
-        $test = Test::find($id);
-        $test->name = $request->input('name');
-        $test->save();
+        $sale = Sale::find($id);
+        $sale->name = $request->input('name');
+        $sale->save();
 
 
-        return redirect()->route('tests.index')
-                        ->with('success','Test updated successfully');
+        return redirect()->route('sales.index')
+                        ->with('success','Sale updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(Sale $sale)
     {
-        $test->delete();
-        return redirect()->route('tests.index')
-                        ->with('success','Test deleted successfully');
-    }
-
-    public function table()
-    {
-        return view('tests.table');
+        $sale->delete();
+        return redirect()->route('sales.index')
+                        ->with('success','Sale deleted successfully');
     }
 }
