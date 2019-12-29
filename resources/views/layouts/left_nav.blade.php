@@ -222,13 +222,19 @@
                         <li>
                             <a href="{{ route('delivery-companies.index') }}">
                                 <i class="metismenu-icon">
-                                    </i> Delivery Companies
+                                    </i> Add Deliveries
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('district-and-zones.index') }}">
+                            <a href="{{ route('company-names.index') }}">
                                 <i class="metismenu-icon">
-                                    </i> District and Zones
+                                    </i> Company Names
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('districts.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> Districts
                             </a>
                         </li>
                     </ul>

@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">delivery_companies</div>
+                <div class="card-header">Tests</div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                   <p>{{ $message }}</p>
@@ -28,52 +28,62 @@
 
                 <div class="card-body">
 
-                    {!! Form::model($delivery_company, ['method' => 'PATCH','route' => ['delivery-companies.update', $delivery_company->id]]) !!}
+                    {!! Form::model($deliveryCompany, ['method' => 'PATCH','route' => ['delivery-companies.update', $deliveryCompany->id]]) !!}
+                        <div class="form-row">
 
-                    <div class="form-row">
-                        
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="position-relative form-group">
-                                    {{ Form::label('name', 'Company Name') }}
-                                    {{ Form::text('name', null, ['placeholder'=>'Company Name', 'class'=>"form-control", 'required'=>'required']) }}
+                                    {{ Form::label('company_name_id', 'Company Name') }}
+                                    {{ Form::select('company_name_id', $company_names->pluck('name', 'id'), null, ['placeholder'=>'Select a Company', 'class'=>"form-control", 'required'=>'required']) }}
                                 </div>
-                            </div> 
-
-                            <div class="col-md-6">
-                                <div class="position-relative form-group">
-                                    {{ Form::label('type') }}
-                                    {{ Form::text('type', null, ['placeholder'=>'Type', 'class'=>"form-control", 'required'=>'required']) }}
-                                </div>
-                            </div> 
+                            </div>
 
                         </div>
 
                         <div class="form-row">
-                        
-                            <div class="col-md-12">
+
+                            <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    {{ Form::label('cod_charge', 'COD Charge') }}
-                                    {{ Form::number('cod_charge', null, ['placeholder'=>'COD Charge', 'step'=>'0.01', 'class'=>"form-control", 'required'=>'required']) }}
+                                    {{ Form::label('district_id', 'District') }}
+                                    {{ Form::select('district_id', $districts->pluck('district', 'id'), null, ['placeholder'=>'Select a District', 'class'=>"form-control", 'required'=>'required']) }}
                                 </div>
-                            </div> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    {{ Form::label('zone', 'Zone') }}
+                                    {{ Form::text('zone', null, ['placeholder'=>'Zone', 'class'=>"form-control", 'required'=>'required']) }}
+                                </div>
+                            </div>
 
                         </div>
 
-                        <div class="form-row" id="app">
-                        
-                            <div class="col-md-6">
-                                <div class="position-relative form-group">
-                                    {{ Form::label('district_and_zone_id', 'Zone') }}
-                                    {{ Form::select('district_and_zone_id', $district_and_zones->pluck('zone', 'id'), null, ['class'=>"form-control", 'v-model'=>'district_and_zone_id','required'=>'required']) }}
-                                </div>
-                            </div> 
+                        <div class="form-row">
 
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    {{ Form::label('district_and_zone_id', 'District') }}
-                                    {{ Form::select('district_and_zone_id', $district_and_zones->pluck('district', 'id'), null, ['class'=>"form-control", 'v-model'=>'district_and_zone_id','required'=>'required', 'disabled']) }}
+                                    {{ Form::label('rate') }}
+                                    {{ Form::number('rate', null, ['placeholder'=>'Rate', 'class'=>"form-control", 'required'=>'required']) }}
                                 </div>
-                            </div> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    {{ Form::label('cod_charge') }}
+                                    {{ Form::number('cod_charge', null, ['placeholder'=>'COD Charge', 'class'=>"form-control", 'required'=>'required']) }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    {{ Form::label('type') }}
+                                    {{ Form::text('type', null, ['placeholder'=>'Type', 'class'=>"form-control", 'required'=>'required']) }}
+                                </div>
+                            </div>
 
                         </div>
 
@@ -89,21 +99,5 @@
         </div>
     </div>
 </div>
-
-@section('footer_scripts')
-
-<script type="text/javascript" src="https://unpkg.com/vue@2.6.2/dist/vue.js"></script>
-<script type="text/javascript">
-    var app = new Vue({
-        el: '#app',
-
-        data: {
-            district_and_zone_id: {{ $delivery_company->district_and_zone_id }},
-        },
-
-    });
-</script>
-
-@endsection
 
 @endsection

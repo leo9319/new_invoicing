@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DeliveryCompany;
-use App\DistrictAndZone;
+use App\CompanyName;
+use App\District;
 use Illuminate\Http\Request;
 
 class DeliveryCompanyController extends Controller
@@ -27,7 +28,8 @@ class DeliveryCompanyController extends Controller
      */
     public function create()
     {
-        $data['district_and_zones'] = DistrictAndZone::all();
+        $data['company_names'] = CompanyName::all();
+        $data['districts'] = District::all();
 
         return view('delivery_companies.create', $data);
     }
@@ -40,14 +42,16 @@ class DeliveryCompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'district_and_zone_id' => 'required',
-            'name' => 'required',
+        $validatedData = $this->validate($request, [
+            'company_name_id' => 'required',
+            'district_id' => 'required',
+            'zone' => 'required',
+            'rate' => 'required',
             'cod_charge' => 'required',
             'type' => 'required',
         ]);
 
-        DeliveryCompany::create($request->all());
+        DeliveryCompany::create($validatedData);
 
         return redirect()->route('delivery-companies.index')
                         ->with('success','Delivery Company created successfully');
@@ -72,8 +76,9 @@ class DeliveryCompanyController extends Controller
      */
     public function edit(DeliveryCompany $deliveryCompany)
     {
-        $data['district_and_zones'] = DistrictAndZone::all();
-        $data['delivery_company'] = $deliveryCompany;
+        $data['company_names'] = CompanyName::all();
+        $data['districts'] = District::all();
+        $data['deliveryCompany'] = $deliveryCompany;
 
         return view('delivery_companies.edit', $data);
     }
@@ -87,19 +92,23 @@ class DeliveryCompanyController extends Controller
      */
     public function update(Request $request, DeliveryCompany $deliveryCompany)
     {
-        $this->validate($request, [
-            'district_and_zone_id' => 'required',
-            'name' => 'required',
+        $validatedData = $this->validate($request, [
+            'company_name_id' => 'required',
+            'district_id' => 'required',
+            'zone' => 'required',
+            'rate' => 'required',
             'cod_charge' => 'required',
             'type' => 'required',
         ]);
 
-        $delivery_company = DeliveryCompany::find($deliveryCompany->id);
-        $delivery_company->district_and_zone_id = $request->input('district_and_zone_id');
-        $delivery_company->name = $request->input('name');
-        $delivery_company->cod_charge = $request->input('cod_charge');
-        $delivery_company->type = $request->input('type');
-        $delivery_company->save();
+        $delivery_companies = DeliveryCompany::find($deliveryCompany->id);
+        $delivery_companies->company_name_id = $request->input('company_name_id');
+        $delivery_companies->district_id = $request->input('district_id');
+        $delivery_companies->zone = $request->input('zone');
+        $delivery_companies->rate = $request->input('rate');
+        $delivery_companies->cod_charge = $request->input('cod_charge');
+        $delivery_companies->type = $request->input('type');
+        $delivery_companies->save();
 
 
         return redirect()->route('delivery-companies.index')
@@ -117,5 +126,10 @@ class DeliveryCompanyController extends Controller
         $deliveryCompany->delete();
         return redirect()->route('delivery-companies.index')
                         ->with('success','Delivery Company deleted successfully');
+    }
+
+    public function getZone(Request $request)
+    {
+        return DeliveryCompany::where('company_name_id', $request->company_name_id)->where('district_id', $request->district_id)->get();
     }
 }

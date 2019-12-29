@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDistrictAndZonesTable extends Migration
+class CreateDeliveryCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateDistrictAndZonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('district_and_zones', function (Blueprint $table) {
+        Schema::create('delivery_companies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('district');
+            $table->unsignedBigInteger('company_name_id');
+            $table->unsignedBigInteger('district_id');
             $table->string('zone');
+            $table->integer('rate');
+            $table->decimal('cod_charge', 4, 2);
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateDistrictAndZonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('district_and_zones');
+        Schema::dropIfExists('delivery_companies');
     }
 }

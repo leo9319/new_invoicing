@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'Edit District And Zone') 
+@section('title', 'Edit District') 
 
 @section('content')
 
@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">District And Zone</div>
+                <div class="card-header">District</div>
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                   <p>{{ $message }}</p>
@@ -28,24 +28,13 @@
 
                 <div class="card-body">
 
-                    {!! Form::model($districtAndZone, ['method' => 'PATCH','route' => ['district-and-zones.update', $districtAndZone->id]]) !!}
+                    {!! Form::model($district, ['method' => 'PATCH','route' => ['districts.update', $district->id]]) !!}
                     <div class="form-row">
 
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 {{ Form::label('district') }}
                                 {{ Form::text('district', null, ['placeholder'=>'District', 'class'=>"form-control", 'required'=>'required']) }}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-row">
-
-                        <div class="col-md-12">
-                            <div class="position-relative form-group">
-                                {{ Form::label('zone') }}
-                                {{ Form::text('zone', null, ['placeholder'=>'Zone', 'class'=>"form-control", 'required'=>'required']) }}
                             </div>
                         </div>
 

@@ -6,6 +6,7 @@ use App\Sale;
 use App\Voucher;
 use App\Discount;
 use App\Product;
+use App\CompanyName;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -18,7 +19,6 @@ class SaleController extends Controller
     public function index()
     {
         $data['sales'] = Sale::all();
-        
 
         return view('sales.index', $data);
     }
@@ -33,6 +33,7 @@ class SaleController extends Controller
         $data['vouchers'] = Voucher::all();
         $data['discounts'] = Discount::all();
         $data['products'] = Product::all();
+        $data['company_names'] = CompanyName::all();
 
         return view('sales.create', $data);
     }
@@ -45,14 +46,38 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         $this->validate($request, [
-            'name' => 'required',
+            'date' => 'required',
+            'client_name' => 'required',
+            'client_phone' => 'required',
+            'client_address' => 'required',
+            'client_email' => 'required',
+            'product_id' => 'required',
         ]);
 
-        Sale::create($request->all());
+        $sale = new Sale;
 
-        return redirect()->route('sales.index')
-                        ->with('success','Sale created successfully');
+        $sale->voucher_id = $request->voucher_id;
+        $sale->delivery_company_id = $request->delivery_company_id;
+        $sale->discount_id = $request->discount_id;
+        $sale->date = $request->date;
+        $sale->client_name = $request->client_name;
+        $sale->client_address = $request->client_address;
+        $sale->client_phone = $request->client_phone;
+        $sale->client_email = $request->client_email;
+        $sale->client_address = $request->client_address;
+        $sale->save();
+
+
+        // $this->validate($request, [
+        //     'name' => 'required',
+        // ]);
+
+        // Sale::create($request->all());
+
+        // return redirect()->route('sales.index')
+        //                 ->with('success','Sale created successfully');
     }
 
     /**
@@ -87,7 +112,12 @@ class SaleController extends Controller
     public function update(Request $request, Sale $sale)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'date' => 'required',
+            'client_name' => 'required',
+            'client_phone' => 'required',
+            'client_address' => 'required',
+            'client_email' => 'required',
+            'product_id' => 'required',
         ]);
 
         $sale = Sale::find($id);

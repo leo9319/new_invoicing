@@ -50,7 +50,7 @@
 			</tr>
 	    </table>
 
-	    <button type='button' class="btn btn-info" @click="addNewRow">
+	    <button type='button' class="btn btn-info" @click="deleteRow">
 		    <i class="fas fa-plus-circle"></i>
 		    Add
 		</button>

@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'Create District And Zone') 
+@section('title', 'Create Delivery Company') 
 
 @section('content')
 
@@ -20,27 +20,16 @@
                       </div>
                     @endif
                     <h5 class="card-title">Please provide the necessary information</h5>
-                    {{ Form::open(['route'=>'district-and-zones.store', 'autocomplete'=>'off']) }}
+                    {{ Form::open(['route'=>'company-names.store', 'autocomplete'=>'off']) }}
 
                         <div class="form-row">
-
+                        
                             <div class="col-md-12">
                                 <div class="position-relative form-group">
-                                    {{ Form::label('district') }}
-                                    {{ Form::text('district', null, ['placeholder'=>'District', 'class'=>"form-control", 'required'=>'required']) }}
+                                    {{ Form::label('name', 'Company Name') }}
+                                    {{ Form::text('name', null, ['placeholder'=>'Company Name', 'class'=>"form-control", 'required'=>'required']) }}
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div class="form-row">
-
-                            <div class="col-md-12">
-                                <div class="position-relative form-group">
-                                    {{ Form::label('zone') }}
-                                    {{ Form::text('zone', null, ['placeholder'=>'Zone', 'class'=>"form-control", 'required'=>'required']) }}
-                                </div>
-                            </div>
+                            </div> 
 
                         </div>
 

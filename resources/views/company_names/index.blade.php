@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'District And Zones') 
+@section('title', 'Delivery Company') 
 
 @section('header_scripts')
 
@@ -8,7 +8,7 @@
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#district_and_zones').DataTable();
+        $('#company-names').DataTable();
     } );
 </script>
 @stop
@@ -20,10 +20,10 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">District And Zone
+                <div class="card-header">company-names
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
-                            <a class="btn btn-success" href="{{ route('district-and-zones.create') }}">Add District And Zone</a>
+                            <a class="btn btn-success" href="{{ route('company-names.create') }}"> Add Delivery Company</a>
                         </div>
                     </div>
                 </div>
@@ -37,24 +37,22 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="container">
-                            <table id="district_and_zones" class="align-middle mb-0 table table-bordered table-striped table-hover">
+                            <table id="company-names" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID.</th>
-                                        <th>District</th>
-                                        <th>Zone</th>
+                                        <th>Name</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($district_and_zones as $index => $district_and_zone)
+                                    @foreach($company_names as $index => $company_name)
                                     <tr>
                                         <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $district_and_zone->district }}</td>
-                                        <td>{{ $district_and_zone->zone }}</td>
+                                        <td>{{ $company_name->name }}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{ route('district-and-zones.edit', $district_and_zone->id) }}">Edit</a>
-                                            {!! Form::open(['method' => 'DELETE','route' => ['district-and-zones.destroy', $district_and_zone->id],'style'=>'display:inline']) !!}
+                                            <a class="btn btn-primary" href="{{ route('company-names.edit', $company_name->id) }}">Edit</a>
+                                            {!! Form::open(['method' => 'DELETE','route' => ['company-names.destroy', $company_name->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
                                         </td>

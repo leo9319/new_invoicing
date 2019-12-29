@@ -30,10 +30,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('inventories','InventoryController');
     Route::resource('discounts','DiscountController');
     Route::resource('vouchers','VoucherController');
-    Route::resource('district-and-zones','DistrictAndZoneController');
+    Route::resource('districts','DistrictController');
+    Route::resource('company-names','CompanyNameController');
     Route::resource('delivery-companies','DeliveryCompanyController');
     Route::resource('sales','SaleController');
 });
 
 Route::get('/get-product', 'InventoryController@getProduct');
+Route::get('/get-company', 'CompanyNameController@getCompany');
+Route::get('/get-district', 'DistrictController@getDistrict');
+Route::post('/get-zone', 'DeliveryCompanyController@getZone');
 Route::get('/table', 'TestController@table');
