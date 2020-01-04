@@ -15,14 +15,14 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('voucher_id');
+            $table->unsignedBigInteger('voucher_id')->nullable();
             $table->unsignedBigInteger('delivery_company_id');
-            $table->unsignedBigInteger('discount_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->date('date');
             $table->string('client_name');
             $table->string('client_address');
             $table->string('client_phone');
-            $table->string('client_email');
+            $table->string('client_email')->nullable();
             $table->boolean('handed_over');
             $table->enum('delivered', ['yes', 'partial', 'no']);
             $table->timestamps();

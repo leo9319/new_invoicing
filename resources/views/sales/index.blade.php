@@ -40,17 +40,24 @@
                             <table id="sales" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID.</th>
+                                        <th>Invoice ID</th>
+                                        <th>Date</th>
                                         <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Phone</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($sales as $index => $sale)
                                     <tr>
-                                        <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $sale->name }}</td>
+                                        <td class="text-muted">{{ 'IN' . sprintf('%06d', ($sale->id)) }}</td>
+                                        <td>{{ Carbon\Carbon::parse($sale->date)->format('d M y') }}</td>
+                                        <td>{{ $sale->client_name }}</td>
+                                        <td>{{ $sale->client_address }}</td>
+                                        <td>{{ $sale->client_phone }}</td>
                                         <td>
+                                            <a class="btn btn-info" href="{{ route('sales.show', $sale->id) }}">View</a>
                                             <a class="btn btn-primary" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
                                             {!! Form::open(['method' => 'DELETE','route' => ['sales.destroy', $sale->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

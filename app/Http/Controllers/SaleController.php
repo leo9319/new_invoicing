@@ -7,6 +7,7 @@ use App\Voucher;
 use App\Discount;
 use App\Product;
 use App\CompanyName;
+use App\SaleProduct;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -46,13 +47,13 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        // return $request->all();
         $this->validate($request, [
             'date' => 'required',
             'client_name' => 'required',
+            'delivery_company_id' => 'required',
             'client_phone' => 'required',
             'client_address' => 'required',
-            'client_email' => 'required',
             'product_id' => 'required',
         ]);
 
@@ -69,15 +70,14 @@ class SaleController extends Controller
         $sale->client_address = $request->client_address;
         $sale->save();
 
+        foreach ($request->product_id as $index => $product_id) {
+            $sale->products()->attach([
+                $product_id => ['quantity' => $request->quantity[$index], 'price' => $request->mrp[$index]],
+            ]);
+        }
 
-        // $this->validate($request, [
-        //     'name' => 'required',
-        // ]);
-
-        // Sale::create($request->all());
-
-        // return redirect()->route('sales.index')
-        //                 ->with('success','Sale created successfully');
+        return redirect()->route('sales.index')
+                        ->with('success','Sale created successfully');
     }
 
     /**
@@ -88,7 +88,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return view('sales.show', compact('sale'));
     }
 
     /**
@@ -99,7 +99,13 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
-        return view('sales.edit', compact('sale'));
+        $data['vouchers'] = Voucher::all();
+        $data['discounts'] = Discount::all();
+        $data['products'] = Product::all();
+        $data['company_names'] = CompanyName::all();
+        $data['sale'] = $sale;
+
+        return view('sales.edit', $data);
     }
 
     /**
