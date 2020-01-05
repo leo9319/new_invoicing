@@ -13,6 +13,15 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:inventory-list');
+         $this->middleware('permission:inventory-create', ['only' => ['create','store']]);
+         $this->middleware('permission:inventory-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:inventory-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $data['inventories'] = Inventory::all();

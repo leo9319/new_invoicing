@@ -46,7 +46,9 @@
                                         <th>Influencer Code</th>
                                         <th>Product Name</th>
                                         <th>Discount</th>
+                                        @if(auth()->user()->can('voucher-edit') || auth()->user()->can('voucher-delete'))
                                         <th>Actions</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,13 +60,18 @@
                                         <td>{{ $test->influencer_code }}</td>
                                         <td>{{ $test->product->name }}</td>
                                         <td>{{ $test->discount_percentage . '%' }}</td>
-                                        
+                                        @if(auth()->user()->can('voucher-edit') || auth()->user()->can('voucher-delete'))
                                         <td>
+                                            @can('voucher-edit')
                                             <a class="btn btn-primary" href="{{ route('vouchers.edit', $test->id) }}">Edit</a>
+                                            @endcan
+                                            @can('voucher-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['vouchers.destroy', $test->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
+                                            @endcan
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

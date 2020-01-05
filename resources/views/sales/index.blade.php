@@ -45,7 +45,9 @@
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Phone</th>
+                                        @if(auth()->user()->can('sale-edit') || auth()->user()->can('sale-delete')|| auth()->user()->can('sale-view'))
                                         <th>Actions</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,13 +58,19 @@
                                         <td>{{ $sale->client_name }}</td>
                                         <td>{{ $sale->client_address }}</td>
                                         <td>{{ $sale->client_phone }}</td>
+                                        @if(auth()->user()->can('sale-edit') || auth()->user()->can('sale-delete')|| auth()->user()->can('sale-view'))
                                         <td>
                                             <a class="btn btn-info" href="{{ route('sales.show', $sale->id) }}">View</a>
+                                            @can('sale-edit')
                                             <a class="btn btn-primary" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
+                                            @endcan
+                                            @can('sale-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['sales.destroy', $sale->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
+                                            @endcan
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -46,7 +46,9 @@
                                         <th>Brand</th>
                                         <th>Quantity</th>
                                         <th>MRP</th>
+                                        @if(auth()->user()->can('inventory-edit') || auth()->user()->can('inventory-delete'))
                                         <th>Actions</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,12 +60,18 @@
                                         <td>{{ $inventory->product->brand->name }}</td>
                                         <td>{{ $inventory->quantity }}</td>
                                         <td>{{ $inventory->mrp }}</td>
+                                        @if(auth()->user()->can('inventory-edit') || auth()->user()->can('inventory-delete'))
                                         <td>
+                                            @can('inventory-edit')
                                             <a class="btn btn-primary" href="{{ route('inventories.edit', $inventory->id) }}">Edit</a>
+                                            @endcan
+                                            @can('inventory-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['inventories.destroy', $inventory->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
+                                            @endcan
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

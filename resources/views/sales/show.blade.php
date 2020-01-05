@@ -8,7 +8,11 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">Basic Information</h5>
+                	<div class="d-flex justify-content-between align-items-end">
+                		<h5 class="card-title">Basic Information</h5>
+                		<button class="btn btn-success">Update Status</button>
+                	</div>
+                    
                     <div class="divider"></div>
                     <div class="row">
                     	<div class="col">
@@ -23,6 +27,8 @@
                             <ul class="nav flex-column">
                                 <li class="nav-item mt-2"><b>Date: </b>{{ Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</li>
                                 <li class="nav-item mt-2"><b>Invoice ID: </b>{{ 'IN' . sprintf('%06d', ($sale->id)) }}</li>
+                                <li class="nav-item mt-2"><b>Voucher Code: </b>{{ $sale->voucher->influencer_code ?? '' }}</li>
+                                <li class="nav-item mt-2"><b>Discount Campaign Name: </b>{{ $sale->discount->name ?? '' }}</li>
                             </ul>
                         </div>
                     </div>
@@ -41,8 +47,8 @@
                         </div>
                         <div class="col">
                             <ul class="nav flex-column">
-                                <li class="nav-item mt-2"><b>Handed Over to Delivery Company: </b>{{ $sale->handed_over }}</li>
-                                <li class="nav-item mt-2"><b>Delivery Status: </b>{{ $sale->delivered }}</li>
+                                <li class="nav-item mt-2"><b>Handed Over to Delivery Company: </b>{{ $sale->handed_over ?? 'N/A' }}</li>
+                                <li class="nav-item mt-2"><b>Delivery Status: </b>{{ $sale->delivered ?? 'N/A' }}</li>
                             </ul>
                         </div>
                     </div>
@@ -51,14 +57,15 @@
             </div>
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">Product Information</h5>
+                    <h5 class="card-title">Orders <div class="badge badge-pill badge-info">{{ count($sale->products) }}</div></h5>
                     <div class="divider"></div>
+                    @foreach($sale->products as $product)
                     <div class="row">
-                    	@foreach($sale->products as $product)
                         <div class="col">
 							<ul class="nav flex-column">
                                 <li class="nav-item mt-2"><b>Product Code: </b>{{ 'P' . sprintf('%03d', ($product->id)) }}</li>
                                 <li class="nav-item mt-2"><b>Quantity: </b>{{ $product->pivot->quantity }}</li>
+                                <li class="nav-item mt-2 mb-2"><b>Remarks: </b>{{ $product->pivot->remarks }}</li>
                             </ul>
                         </div>
                         <div class="col">
@@ -67,65 +74,43 @@
                                 <li class="nav-item mt-2"><b>Price: </b>{{ $product->pivot->price }}</li>
                             </ul>
                         </div>
-                        @endforeach
+                        <div class="col">
+							<ul class="nav flex-column">
+                                <li class="nav-item mt-2"><b>Total Cost: </b>{{ number_format($product->pivot->quantity * $product->pivot->price), 2 }}</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="divider"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="main-card mb-3 card">
-                <div class="card-body">
-                    <h5 class="card-title">Horizontal Menu</h5>
-                    <ul class="nav"><a href="javascript:void(0);" class="nav-link active">Link</a><a href="javascript:void(0);" class="nav-link">Link</a><a href="javascript:void(0);" class="nav-link">Another Link</a><a disabled="" href="javascript:void(0);" class="nav-link disabled">Disabled
-Link</a></ul>
-                    <div class="divider"></div>
-                    <div class="nav">
-                        <a href="javascript:void(0);" class="nav-link active"><i class="nav-link-icon pe-7s-settings"> </i><span>Link</span></a>
-                        <a href="javascript:void(0);" class="nav-link"><i
-	class="nav-link-icon pe-7s-wallet"> </i><span>Link</span>
-	<div class="badge badge-pill badge-danger">12</div>
-</a>
-                        <a href="javascript:void(0);" class="nav-link"><span>Another Link</span></a>
-                        <a disabled="" href="javascript:void(0);" class="nav-link disabled"><i
-	class="nav-link-icon pe-7s-box1"> </i><span>Disabled Link</span></a>
-                    </div>
-                    <div class="divider"></div>
-                    <ul class="nav nav-justified">
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link active"><i class="nav-link-icon pe-7s-settings"> </i><span>Justified</span></a></li>
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon pe-7s-chat"> </i><span>Link</span>
-	<div class="badge badge-success">NEW</div>
-</a></li>
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link"><span>Another Link</span></a></li>
-                        <li class="nav-item"><a disabled="" href="javascript:void(0);" class="nav-link disabled"><i class="nav-link-icon pe-7s-box1"> </i><span>Disabled Link</span></a></li>
-                    </ul>
+                    <hr>
+                    @endforeach
                 </div>
             </div>
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">Active Links</h5>
-                    <div class="nav nav-pills"><a href="javascript:void(0);" class="nav-link active">Link</a><a href="javascript:void(0);" class="nav-link">Link</a><a href="javascript:void(0);" class="nav-link">Another Link</a><a disabled="" href="javascript:void(0);" class="nav-link disabled">Disabled Link</a></div>
+                    <h5 class="card-title">Invoice Total</h5>
                     <div class="divider"></div>
-                    <div class="nav nav-pills"><a href="javascript:void(0);" class="nav-link active"><i class="nav-link-icon pe-7s-settings"> </i><span>Link</span></a><a href="javascript:void(0);" class="nav-link"><i
-class="nav-link-icon pe-7s-wallet"> </i><span>Link</span>
-<div class="badge badge-pill badge-danger">12</div>
-</a><a href="javascript:void(0);" class="nav-link"><span>Another Link</span></a><a disabled="" href="javascript:void(0);" class="nav-link disabled"><i
-class="nav-link-icon pe-7s-box1"> </i><span>Disabled Link</span></a></div>
-                    <div class="divider"></div>
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link active"><i class="nav-link-icon pe-7s-settings"> </i>Justified</a></li>
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon pe-7s-chat"> </i>Link
-<div class="badge badge-success">NEW</div>
-</a></li>
-                        <li class="nav-item"><a href="javascript:void(0);" class="nav-link">Another Link</a></li>
-                        <li class="nav-item"><a disabled="" href="javascript:void(0);" class="nav-link disabled"><i class="nav-link-icon pe-7s-box1"> </i>Disabled Link</a></li>
-                    </ul>
+                    <div class="row">
+                        <div class="col">
+							<ul class="nav flex-column">
+                                <li class="nav-item mt-2"><b>Total Product Cost:</b></li>
+                                <li class="nav-item mt-2"><b>Voucher Discount ({{ $sale->voucher->discount_percentage ?? 0 }}%)</b></li>
+                                <li class="nav-item mt-2"><b>Campaign Discount ({{ $sale->discount->percentage ?? 0 }}%)</b></li>
+                                <li class="nav-item mt-2"><b>Total After Discounts</b></li>
+                            </ul>
+                        </div>
+                        <div class="col">
+							<ul class="nav flex-column">
+                                <li class="nav-item mt-2">{{ number_format($sale->totalProductPrice(), 2) }}</li>
+                                <li class="nav-item mt-2"></li>
+                                <li class="nav-item mt-2"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>
 @endsection @section('footer_scripts')
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>

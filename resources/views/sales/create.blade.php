@@ -158,14 +158,14 @@
 
                                     <div class="col-md-12">
                                         <div class="position-relative form-group">
-                                            {{ Form::label('remark', 'MRP') }}
-                                            {{ Form::text('remark[]', null, ['placeholder'=>'Remark', 'v-model'=>'invoice_product.remark', 'class'=>"form-control"]) }}
+                                            {{ Form::label('remarkss', 'MRP') }}
+                                            {{ Form::text('remarkss[]', null, ['placeholder'=>'Remark', 'v-model'=>'invoice_product.remarks', 'class'=>"form-control"]) }}
                                         </div>
                                     </div>
     
-                                    <hr>
-    
                                 </div>
+
+                                <hr>
     
                                 <button type='button' class="btn btn-danger btn-block" v-if="index > 0" @click="deleteRow(index, invoice_product)">Remove Product</button>
                             </div>
@@ -195,7 +195,7 @@
             invoice_products: [{
                 product_id: '',
                 mrp: '',
-                remark: ''
+                remarks: ''
             }],
             company: 0,
             district: 0,
@@ -211,7 +211,7 @@
                 this.invoice_products.push({
                     product_id: '',
                     mrp: '',
-                    remark: ''
+                    remarks: ''
                 });
             },
 

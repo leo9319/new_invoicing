@@ -45,7 +45,9 @@
                                         <th>Name</th>
                                         <th>Brand</th>
                                         <th>Size</th>
+                                        @if(auth()->user()->can('product-edit') || auth()->user()->can('product-delete'))
                                         <th>Actions</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,12 +58,18 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->brand->name }}</td>
                                         <td>{{ $product->size }}</td>
+                                        @if(auth()->user()->can('product-edit') || auth()->user()->can('product-delete'))
                                         <td>
+                                            @can('product-edit')
                                             <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a>
+                                            @endcan
+                                            @can('product-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['products.destroy', $product->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
+                                            @endcan
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

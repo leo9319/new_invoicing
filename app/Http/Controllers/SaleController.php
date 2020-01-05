@@ -17,6 +17,15 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:sale-list');
+         $this->middleware('permission:sale-create', ['only' => ['create','store']]);
+         $this->middleware('permission:sale-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:sale-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $data['sales'] = Sale::all();
@@ -72,7 +81,7 @@ class SaleController extends Controller
 
         foreach ($request->product_id as $index => $product_id) {
             $sale->products()->attach([
-                $product_id => ['quantity' => $request->quantity[$index], 'price' => $request->mrp[$index]],
+                $product_id => ['quantity' => $request->quantity[$index], 'price' => $request->mrp[$index], 'remarks' => $request->remarks],
             ]);
         }
 

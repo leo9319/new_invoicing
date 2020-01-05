@@ -13,6 +13,15 @@ class DiscountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:discount-list');
+         $this->middleware('permission:discount-create', ['only' => ['create','store']]);
+         $this->middleware('permission:discount-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:discount-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $data['discounts'] = Discount::all();

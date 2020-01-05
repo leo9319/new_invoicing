@@ -47,7 +47,9 @@
                                         <th>Product</th>
                                         <th>Amount</th>
                                         <th>Percentage</th>
+                                        @if(auth()->user()->can('discount-edit') || auth()->user()->can('discount-delete'))
                                         <th>Actions</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,12 +62,18 @@
                                         <td>{{ $discount->product->name }}</td>
                                         <td>{{ $discount->amount ?? 'N/A' }}</td>
                                         <td>{{ $discount->percentage ?? 'N/A' }}</td>
+                                        @if(auth()->user()->can('discount-edit') || auth()->user()->can('discount-delete'))
                                         <td>
+                                            @can('discount-edit')
                                             <a class="btn btn-primary" href="{{ route('discounts.edit', $discount->id) }}">Edit</a>
+                                            @endcan
+                                            @can('discount-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['discounts.destroy', $discount->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
+                                            @endcan
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

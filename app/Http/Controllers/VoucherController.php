@@ -13,6 +13,15 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+         $this->middleware('permission:voucher-list');
+         $this->middleware('permission:voucher-create', ['only' => ['create','store']]);
+         $this->middleware('permission:voucher-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:voucher-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $data['vouchers'] = Voucher::all();
