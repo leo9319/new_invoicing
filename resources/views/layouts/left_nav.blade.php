@@ -38,7 +38,7 @@
                         <i class="metismenu-icon pe-7s-rocket"></i> Dashboard
                     </a>
                 </li>
-                @hasanyrole('Super Admin|Admin|Brand Manager')
+                @hasanyrole('Super Admin|Admin|Brand Manager|Customer Service|Accounts')
                 @role('Super Admin|Admin')
                 <li class="app-sidebar__heading">Users, Roles and Permissions</li>
                 <li>
@@ -46,6 +46,8 @@
                         <i class="metismenu-icon pe-7s-users"></i> All Users
                     </a>
                 </li>
+                @endrole
+                @role('Super Admin')
                 <li>
                     <a href="{{ route('roles.index') }}">
                         <i class="metismenu-icon pe-7s-network"></i> Roles
@@ -56,6 +58,8 @@
                         <i class="metismenu-icon pe-7s-unlock"></i> Permissions
                     </a>
                 </li>
+                @endrole
+                @role('Super Admin|Admin')
                 <li class="app-sidebar__heading">Products, Brands and Inventories</li>
                 <li>
                     <a href="#">
@@ -134,29 +138,14 @@
                     </a>
                 </li>
                 @endrole
+                @role('Super Admin|Admin|Brand Manager|Customer Service')
                 <li class="app-sidebar__heading">Sales</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-note2"></i> Invoice
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <a href="{{ route('sales.index') }}">
+                        <i class="metismenu-icon pe-7s-note2"></i> Invoices
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('sales.index') }}">
-                                <i class="metismenu-icon">
-                                    </i> View Invoices
-                            </a>
-                        </li>
-                        @role('Super Admin|Admin')
-                        <li>
-                            <a href="{{ route('sales.index') }}">
-                                <i class="metismenu-icon">
-                                    </i>Create Invoice 
-                            </a>
-                        </li>
-                        @endrole
-                    </ul>
                 </li>
+                @endrole
                 <li class="app-sidebar__heading">Reports</li>
                 <li>
                     <a href="#">

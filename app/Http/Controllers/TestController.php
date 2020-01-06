@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Test;
+use App\Product;
 
 class TestController extends Controller
 {
@@ -14,6 +15,10 @@ class TestController extends Controller
      */
     public function index()
     {
+        $product = Product::find(4);
+
+        return $product->voucher->discount_percentage;
+
         $data['tests'] = Test::all();
 
         return view('tests.index', $data);

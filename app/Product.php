@@ -17,4 +17,9 @@ class Product extends Model
     {
     	return $this->belongsToMany('App\Sale');
     }
+
+    public function voucher()
+    {
+    	return $this->hasOne('App\Voucher');
+    }
 }

@@ -8,6 +8,7 @@ use App\Discount;
 use App\Product;
 use App\CompanyName;
 use App\SaleProduct;
+use Carbon;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -40,8 +41,8 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $data['vouchers'] = Voucher::all();
-        $data['discounts'] = Discount::all();
+        $data['vouchers'] = Voucher::where('start_date', '<=', Carbon\Carbon::now())
+        ->where('end_date', '>=', Carbon\Carbon::now())->get();
         $data['products'] = Product::all();
         $data['company_names'] = CompanyName::all();
 
@@ -66,11 +67,15 @@ class SaleController extends Controller
             'product_id' => 'required',
         ]);
 
+        // get the discount count of the current latest campaign
+        $discount =  Discount::where('start_date', '<=', Carbon\Carbon::now())
+        ->where('end_date', '>=', Carbon\Carbon::now())->first();
+
         $sale = new Sale;
 
         $sale->voucher_id = $request->voucher_id;
         $sale->delivery_company_id = $request->delivery_company_id;
-        $sale->discount_id = $request->discount_id;
+        $sale->discount_id = $discount->id ?? NULL;
         $sale->date = $request->date;
         $sale->client_name = $request->client_name;
         $sale->client_address = $request->client_address;
@@ -80,8 +85,17 @@ class SaleController extends Controller
         $sale->save();
 
         foreach ($request->product_id as $index => $product_id) {
+
+            $price = $request->mrp[$index];
+
+            $product = Product::find($product_id);
+
+            if($product->voucher->id ?? 0 == $request->voucher_id) {
+                $price = $request->mrp[$index] - ($request->mrp[$index] * ($product->voucher->discount_percentage))/100;
+            }
+
             $sale->products()->attach([
-                $product_id => ['quantity' => $request->quantity[$index], 'price' => $request->mrp[$index], 'remarks' => $request->remarks],
+                $product_id => ['quantity' => $request->quantity[$index], 'price' => $price, 'remarks' => $request->remarks],
             ]);
         }
 
@@ -153,6 +167,7 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         $sale->delete();
+        $sale->products->delete();
         return redirect()->route('sales.index')
                         ->with('success','Sale deleted successfully');
     }

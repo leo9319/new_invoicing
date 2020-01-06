@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'Sale') 
+@section('title', 'Invoices') 
 
 @section('header_scripts')
 
@@ -20,11 +20,13 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Sales
+                <div class="card-header">Invoices
                     <div class="btn-actions-pane-right">
+                        @can('sale-create')
                         <div role="group" class="btn-group-sm btn-group">
                             <a class="btn btn-success" href="{{ route('sales.create') }}"> Create Invoice</a>
                         </div>
+                        @endcan
                     </div>
                 </div>
 

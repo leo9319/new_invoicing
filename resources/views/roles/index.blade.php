@@ -1,6 +1,6 @@
 @extends('layouts.master') 
 
-@section('title', 'All Users') 
+@section('title', 'Roles') 
 
 @section('header_scripts')
 

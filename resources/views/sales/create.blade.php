@@ -47,17 +47,6 @@
     
                             </div>
     
-                            <div class="form-row">
-    
-                                <div class="col-md-12">
-                                    <div class="position-relative form-group">
-                                        {{ Form::label('discount_id', 'Discount') }}
-                                        {{ Form::select('discount_id', $discounts->pluck('name', 'id'), null, ['placeholder'=>'Select a Discount', 'class'=>"form-control"]) }}
-                                    </div>
-                                </div>
-    
-                            </div>
-    
                             <hr>
 
                             <div class="form-row">
@@ -145,7 +134,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             {{ Form::label('quantity', 'Quantity') }}
-                                            {{ Form::text('quantity[]', null, ['placeholder'=>'Quantity', 'class'=>"form-control", "required"]) }}
+                                            {{ Form::number('quantity[]', null, ['placeholder'=>'Quantity', 'class'=>"form-control", "required"]) }}
                                         </div>
                                     </div>
     

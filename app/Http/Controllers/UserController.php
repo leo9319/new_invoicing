@@ -21,7 +21,12 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['role:Super Admin|Admin']);
+        $this->middleware('permission:user-list', ['only' => ['index']]);
+        $this->middleware('permission:user-show', ['only' => ['show']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+
     }
 
     public function index()

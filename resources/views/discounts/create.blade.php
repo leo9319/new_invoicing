@@ -44,7 +44,7 @@
 
                             <div class="form-row">
                         
-                                <div class="col-md-6">
+{{--                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         {{ Form::label('code', 'Product Code') }}
                                         {{ Form::select('product_id', $products->pluck('code', 'id'), null, ['placeholder'=>'Product Code', 'class'=>"form-control", 'v-model'=>'product_id', 'required'=>'required']) }}
@@ -56,7 +56,7 @@
                                         {{ Form::label('name', 'Product Name') }}
                                         {{ Form::select('product_id', $products->pluck('name', 'id'), null, ['placeholder'=>'Product Name', 'class'=>"form-control", 'v-model'=>'product_id', 'required'=>'required']) }}
                                     </div>
-                                </div> 
+                                </div>  --}}
     
                             </div>
 

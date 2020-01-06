@@ -15,7 +15,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('name');

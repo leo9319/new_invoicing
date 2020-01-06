@@ -44,7 +44,7 @@
                                         <th>Starts</th>
                                         <th>Ends</th>
                                         <th>Name</th>
-                                        <th>Product</th>
+                                        {{-- <th>Product</th> --}}
                                         <th>Amount</th>
                                         <th>Percentage</th>
                                         @if(auth()->user()->can('discount-edit') || auth()->user()->can('discount-delete'))
@@ -59,7 +59,7 @@
                                         <td>{{ $discount->start_date }}</td>
                                         <td>{{ $discount->end_date }}</td>
                                         <td>{{ $discount->name }}</td>
-                                        <td>{{ $discount->product->name }}</td>
+                                        {{-- <td>{{ $discount->product->name }}</td> --}}
                                         <td>{{ $discount->amount ?? 'N/A' }}</td>
                                         <td>{{ $discount->percentage ?? 'N/A' }}</td>
                                         @if(auth()->user()->can('discount-edit') || auth()->user()->can('discount-delete'))

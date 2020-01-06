@@ -8,11 +8,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                	<div class="d-flex justify-content-between align-items-end">
-                		<h5 class="card-title">Basic Information</h5>
-                		<button class="btn btn-success">Update Status</button>
-                	</div>
-                    
+            		<h5 class="card-title">Basic Information</h5>
                     <div class="divider"></div>
                     <div class="row">
                     	<div class="col">
@@ -76,7 +72,8 @@
                         </div>
                         <div class="col">
 							<ul class="nav flex-column">
-                                <li class="nav-item mt-2"><b>Total Cost: </b>{{ number_format($product->pivot->quantity * $product->pivot->price), 2 }}</li>
+                                {{-- <li class="nav-item mt-2"><b>Voucher Discount: </b>{{ $product->voucher->discount_percentage }}%</li> --}}
+                                <li class="nav-item mt-2"><b>Total Cost: </b>{{ $product->pivot->price * $product->pivot->quantity }}</li>
                             </ul>
                         </div>
                     </div>
@@ -92,16 +89,27 @@
                         <div class="col">
 							<ul class="nav flex-column">
                                 <li class="nav-item mt-2"><b>Total Product Cost:</b></li>
-                                <li class="nav-item mt-2"><b>Voucher Discount ({{ $sale->voucher->discount_percentage ?? 0 }}%)</b></li>
-                                <li class="nav-item mt-2"><b>Campaign Discount ({{ $sale->discount->percentage ?? 0 }}%)</b></li>
+                                <li class="nav-item mt-2">
+                                    <b>Campaign Discount</b>
+                                    @if(isset($sale->discount))
+                                    ({{ $sale->discount->amount ? 'Flat' : 'Percentage' }})
+                                    @endif
+                                </li>
                                 <li class="nav-item mt-2"><b>Total After Discounts</b></li>
                             </ul>
                         </div>
                         <div class="col">
 							<ul class="nav flex-column">
                                 <li class="nav-item mt-2">{{ number_format($sale->totalProductPrice(), 2) }}</li>
-                                <li class="nav-item mt-2"></li>
-                                <li class="nav-item mt-2"></li>
+                                <li class="nav-item mt-2">
+                                    @if(isset($sale->discount))
+                                    {{ $sale->discount->amount ?? false ? $sale->discount->amount : $sale->discount->percentage }}
+                                    {{ $sale->discount->amount ? '' : '%' }}
+                                    @else
+                                    {{ 'N/A' }}
+                                    @endif
+                                </li>
+                                <li class="nav-item mt-2">{{ $sale->getTotalAfterDiscount() }}</li>
                             </ul>
                         </div>
                     </div>

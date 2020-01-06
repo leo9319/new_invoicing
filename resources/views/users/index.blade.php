@@ -24,7 +24,7 @@
 
                         @can('user-create')
                             <div role="group" class="btn-group-sm btn-group">
-                                <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+                                <a class="btn btn-success" href="{{ route('users.create') }}"> Add New User</a>
                             </div>
                         @endcan
 
@@ -44,7 +44,9 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Roles</th>
+                                    @if(auth()->user()->can('user-edit') || auth()->user()->can('user-delete')|| auth()->user()->can('user-show'))
                                     <th>Actions</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,13 +63,17 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @can('user-show')
                                         <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
-                                        @can('role-edit')
+                                        @endcan
+                                        @can('user-edit')
                                         <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a>
                                         @endcan
+                                        @can('user-delete')
                                         {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!} 
                                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!} 
                                         {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

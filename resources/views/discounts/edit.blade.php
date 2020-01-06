@@ -50,7 +50,7 @@
 
                         <div id="app">
 
-                            <div class="form-row">
+{{--                             <div class="form-row">
                         
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
@@ -66,7 +66,7 @@
                                     </div>
                                 </div> 
     
-                            </div>
+                            </div> --}}
 
                             <div class="form-row">
 
