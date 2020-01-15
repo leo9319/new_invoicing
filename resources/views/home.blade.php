@@ -12,10 +12,10 @@
                     <div class="widget-content-wrapper text-white">
                         <div class="widget-content-left">
                             <div class="widget-heading">Total Orders</div>
-                            <div class="widget-subheading">Last year expenses</div>
+                            <div class="widget-subheading">All the sales made</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-white"><span>1896</span></div>
+                            <div class="widget-numbers text-white"><span>{{ $total_orders }}</span></div>
                         </div>
                     </div>
                 </div>
@@ -24,11 +24,11 @@
                 <div class="card mb-3 widget-content bg-arielle-smile">
                     <div class="widget-content-wrapper text-white">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Clients</div>
-                            <div class="widget-subheading">Total Clients Profit</div>
+                            <div class="widget-heading">Total Products</div>
+                            <div class="widget-subheading">Products added so far</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-white"><span>$ 568</span></div>
+                            <div class="widget-numbers text-white"><span>{{ $total_products }}</span></div>
                         </div>
                     </div>
                 </div>

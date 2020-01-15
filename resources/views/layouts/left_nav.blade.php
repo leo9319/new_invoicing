@@ -148,7 +148,7 @@
                 @endrole
                 <li class="app-sidebar__heading">Reports</li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('reports.sales') }}">
                         <i class="metismenu-icon pe-7s-graph3"></i> Generate Reports
                     </a>
                 </li>

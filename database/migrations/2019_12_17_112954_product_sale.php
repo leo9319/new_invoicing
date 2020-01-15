@@ -19,9 +19,9 @@ class ProductSale extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->decimal('price', 5, 2);
-            $table->boolean('delivered')->defualt(-1);
             $table->boolean('paid')->defualt(-1);
-            $table->boolean('returned')->defualt(-1);
+            $table->integer('returned');
+            $table->integer('damaged');
             $table->text('remarks')->nullable();
             $table->string('attatchment')->nullable();
             $table->timestamps();

@@ -36,8 +36,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('sales','SaleController');
 });
 
-Route::get('/get-product', 'InventoryController@getProduct');
-Route::get('/get-company', 'CompanyNameController@getCompany');
-Route::get('/get-district', 'DistrictController@getDistrict');
-Route::post('/get-zone', 'DeliveryCompanyController@getZone');
+Route::get('view-invoice/{sale}', 'SaleController@viewInvoice')->name('sales.view_invoice');
+Route::get('returned-products/{sale}', 'SaleController@returnedProducts')->name('sales.returned_products');
+Route::post('returned-products/', 'SaleController@storeReturnedProducts')->name('sales.store_returned_products');
+Route::get('/get-product', 'InventoryController@getProduct')->name('get_product');
+Route::get('/get-company', 'CompanyNameController@getCompany')->name('get_company');
+Route::get('/get-district', 'DistrictController@getDistrict')->name('get_district');
+Route::post('/get-zone', 'DeliveryCompanyController@getZone')->name('get_zone');
+Route::get('/update-handling-status', 'SaleController@updateHandlingStatus')->name('sales.update_handling_status');
+Route::get('/update-delivery-status', 'SaleController@updateDeliveryStatus')->name('sales.update_delivery_status');
+Route::get('reports-sales', 'ReportController@sales')->name('reports.sales');
 Route::get('/table', 'TestController@table');

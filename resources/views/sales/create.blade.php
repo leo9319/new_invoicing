@@ -28,7 +28,7 @@
                                 <div class="col-md-12">
                                     <div class="position-relative form-group">
                                         {{ Form::label('date', 'Date') }}
-                                        {{ Form::date('date', Carbon\Carbon::now(), ['class'=>"form-control", 'required'=>'required']) }}
+                                        {{ Form::date('date', Carbon\Carbon::now(), ['class'=>"form-control", 'required'=>'required', 'readonly']) }}
                                     </div>
                                 </div>
     
@@ -212,7 +212,7 @@
             },
 
             onProductChange(invoice_product) {
-                axios.get('/get-product', {
+                axios.get({!! json_encode(route('get_product')) !!}, {
                     params: {
                       id: invoice_product.product_id
                     }
@@ -222,13 +222,13 @@
             },
 
             onCompanyNameChange() {
-                axios.get('/get-district')
+                axios.get({!! json_encode(route('get_district')) !!})
                 .then(response => this.districts = response.data)
                 .catch(error => alert('No district found!'));
             },
 
             onDistrictChange() {
-                axios.post('/get-zone', {
+                axios.post({!! json_encode(route('get_zone')) !!}, {
                     company_name_id: this.company,
                     district_id: this.district,
                 })
@@ -238,7 +238,7 @@
         },
 
         mounted() {
-            axios.get('/get-company')
+            axios.get({!! json_encode(route('get_company')) !!})
             .then(response => this.company_names = response.data)
             .catch(error => alert('No company has been found!'));
         }

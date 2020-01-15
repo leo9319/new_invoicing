@@ -13,6 +13,11 @@ class Product extends Model
     	return $this->belongsTo('App\Brand');
     }
 
+    public function inventory()
+    {
+        return $this->hasOne('App\Inventory');
+    }
+
     public function sales()
     {
     	return $this->belongsToMany('App\Sale');
@@ -21,5 +26,27 @@ class Product extends Model
     public function voucher()
     {
     	return $this->hasOne('App\Voucher');
+    }
+
+    public function addToInventory($quantity)
+    {
+        $count = $this->inventory->quantity;
+
+        $count += $quantity;
+
+        $this->inventory->quantity = $count;
+
+        $this->push();
+    }
+
+    public function removeFromInventory($quantity)
+    {
+        $count = $this->inventory->quantity;
+
+        $count -= $quantity;
+
+        $this->inventory->quantity = $count;
+
+        $this->push();
     }
 }

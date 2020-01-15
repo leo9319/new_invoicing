@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Sale;
-use App\Voucher;
+use App\CompanyName;
 use App\Discount;
 use App\Product;
-use App\CompanyName;
+use App\Sale;
 use App\SaleProduct;
+use App\Voucher;
 use Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -97,6 +98,8 @@ class SaleController extends Controller
             $sale->products()->attach([
                 $product_id => ['quantity' => $request->quantity[$index], 'price' => $price, 'remarks' => $request->remarks],
             ]);
+
+            $product->removeFromInventory($request->quantity[$index]);
         }
 
         return redirect()->route('sales.index')
@@ -112,6 +115,11 @@ class SaleController extends Controller
     public function show(Sale $sale)
     {
         return view('sales.show', compact('sale'));
+    }
+
+    public function viewInvoice(Sale $sale)
+    {
+        return view('sales.view_invoice', compact('sale'));
     }
 
     /**
@@ -153,7 +161,6 @@ class SaleController extends Controller
         $sale->name = $request->input('name');
         $sale->save();
 
-
         return redirect()->route('sales.index')
                         ->with('success','Sale updated successfully');
     }
@@ -166,9 +173,47 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
+        $sale->products()->detach();
         $sale->delete();
-        $sale->products->delete();
         return redirect()->route('sales.index')
                         ->with('success','Sale deleted successfully');
+    }
+
+    public function returnedProducts(Sale $sale)
+    {
+        return view('sales.returned_products', compact('sale'));
+    }
+
+    public function storeReturnedProducts(Request $request)
+    {
+        foreach ($request->ids as $index => $id) {
+            $product_sale = DB::table('product_sale')->where('id', $id);
+            $product_sale->update([
+                'returned' => $request->returned[$index],
+                'damaged' => $request->damaged[$index],
+            ]);
+
+            if($request->returned[$index]) {
+                $product = Product::find($product_sale->first()->product_id);
+                $product->addToInventory($request->returned[$index]);
+            }
+
+        }
+
+        return back();
+    }
+
+    public function updateHandlingStatus(Request $request)
+    {
+        return Sale::whereIn('id', $request->sale_ids)->update([
+            'handed_over' => 'yes'
+        ]);
+    }
+
+    public function updateDeliveryStatus(Request $request)
+    {
+        return Sale::whereIn('id', $request->sale_ids)->update([
+            'delivered' => $request->status
+        ]);
     }
 }

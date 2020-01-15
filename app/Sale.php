@@ -10,7 +10,7 @@ class Sale extends Model
 
     public function products() 
     {
-      	return $this->belongsToMany('App\Product')->withPivot('quantity', 'price');
+      	return $this->belongsToMany('App\Product')->withPivot('id', 'quantity', 'price', 'returned');
     }
 
     public function deliveryCompany() 
@@ -33,7 +33,7 @@ class Sale extends Model
         $total = 0;
 
         foreach ($this->products as $key => $product) {
-          $total += $product->pivot->quantity * $product->pivot->price;
+          $total += ($product->pivot->quantity - $product->pivot->returned) * $product->pivot->price;
         }
 
         return $total;
@@ -43,13 +43,29 @@ class Sale extends Model
     {
       $total = $this->totalProductPrice();
 
-      if($this->discount->amount) {
-        $total = $total - $this->discount->amount;
+      if($total != 0) {
+        if($this->discount->amount) {
+          $total = $total - $this->discount->amount;
+        }
+
+        $total = $total - ($total * $this->discount->percentage)/100;
+      } else {
+        $total = 0;
       }
 
-      $total = $total - ($total * $this->discount->percentage)/100;
+      
 
       return $total;
+    }
+
+    public function totalSaleAfterDelivery()
+    {
+      return $this->totalProductPrice() + $this->deliveryCompany->rate;
+    }
+
+    public function totalSaleAfterDeliveryAndDiscount()
+    {
+      return $this->getTotalAfterDiscount() + $this->deliveryCompany->rate;
     }
 
 }
