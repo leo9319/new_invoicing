@@ -1,6 +1,13 @@
 @extends('layouts.master') 
 
-@section('title', 'Create Title') 
+@section('title', 'Create Title')
+
+@section('header_scripts')
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+@stop
 
 @section('content')
 
@@ -65,14 +72,14 @@
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         {{ Form::label('code', 'Product Code') }}
-                                        {{ Form::select('product_id', $products->pluck('code', 'id'), null, ['placeholder'=>'Product Code', 'class'=>"form-control", 'v-model'=>'product_id', 'required'=>'required']) }}
+                                        {{ Form::select('product_id', $products->pluck('code', 'id'), null, ['placeholder'=>'Product Code', 'id'=>'product-code', 'class'=>"form-control select2", 'required'=>'required']) }}
                                     </div>
                                 </div> 
     
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         {{ Form::label('name', 'Product Name') }}
-                                        {{ Form::select('product_id', $products->pluck('name', 'id'), null, ['placeholder'=>'Product Name', 'class'=>"form-control", 'v-model'=>'product_id', 'required'=>'required']) }}
+                                        {{ Form::select('product_id', $products->pluck('name', 'id'), null, ['placeholder'=>'Product Name', 'id'=>'product-name', 'class'=>"form-control select2", 'required'=>'required']) }}
                                     </div>
                                 </div> 
     
@@ -92,16 +99,26 @@
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="https://unpkg.com/vue@2.6.2/dist/vue.js"></script>
 <script type="text/javascript">
-    var app = new Vue({
-        el: '#app',
-
-        data: {
-            product_id: '',
-        },
-
+    $(".select2").select2({
+      placeholder: 'Select a value', 
+      allowClear: true
     });
+
+    $(document).on("change", "#product-code", function () {
+       id = $(this).val();
+       if($("#product-name").val() != id){
+          $("#product-name").select2('val',id);
+       }
+    });
+
+    $(document).on("change", "#product-name", function () {
+       id = $(this).val();
+       if($("#product-code").val() != id){
+           $("#product-code").select2('val',id);
+       }
+
+     });
 </script>
 
 @endsection
