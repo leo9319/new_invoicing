@@ -39,6 +39,9 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('view-invoice/{sale}', 'SaleController@viewInvoice')->name('sales.view_invoice');
 Route::get('returned-products/{sale}', 'SaleController@returnedProducts')->name('sales.returned_products');
 Route::post('returned-products/', 'SaleController@storeReturnedProducts')->name('sales.store_returned_products');
+Route::get('generate-invoices/', 'SaleController@generateInvoices')->name('sales.generate_invoices');
+Route::post('generate-invoices/', 'SaleController@storeGenerateInvoices');
+
 Route::get('/get-product', 'InventoryController@getProduct')->name('get_product');
 Route::get('/get-company', 'CompanyNameController@getCompany')->name('get_company');
 Route::get('/get-district', 'DistrictController@getDistrict')->name('get_district');

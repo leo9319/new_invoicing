@@ -216,4 +216,16 @@ class SaleController extends Controller
             'delivered' => $request->status
         ]);
     }
+
+    public function generateInvoices()
+    {
+        return view('sales.generate_invoices');
+    }
+
+    public function storeGenerateInvoices(Request $request)
+    {
+        $sales = Sale::whereBetween('date', [$request->start_date, $request->end_date])->get();
+
+        return view('sales.show_generate_invoices', compact('sales'));
+    }
 }

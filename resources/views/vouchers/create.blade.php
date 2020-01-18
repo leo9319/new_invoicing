@@ -65,25 +65,22 @@
 
                         </div>
 
-                        <div id="app">
 
-                            <div class="form-row">
-                                                
-                                <div class="col-md-6">
-                                    <div class="position-relative form-group">
-                                        {{ Form::label('code', 'Product Code') }}
-                                        {{ Form::select('product_id', $products->pluck('code', 'id'), null, ['placeholder'=>'Product Code', 'id'=>'product-code', 'class'=>"form-control select2", 'required'=>'required']) }}
-                                    </div>
-                                </div> 
-    
-                                <div class="col-md-6">
-                                    <div class="position-relative form-group">
-                                        {{ Form::label('name', 'Product Name') }}
-                                        {{ Form::select('product_id', $products->pluck('name', 'id'), null, ['placeholder'=>'Product Name', 'id'=>'product-name', 'class'=>"form-control select2", 'required'=>'required']) }}
-                                    </div>
-                                </div> 
-    
-                            </div>
+                        <div class="form-row">
+                                            
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    {{ Form::label('code', 'Product Code') }}
+                                    {{ Form::select('product_id', $products->pluck('code', 'id'), null, ['placeholder'=>'Product Code', 'id'=>'product-code', 'class'=>"form-control select2", 'required'=>'required']) }}
+                                </div>
+                            </div> 
+
+                            <div class="col-md-6">
+                                <div class="position-relative form-group">
+                                    {{ Form::label('name', 'Product Name') }}
+                                    {{ Form::select('product_id', $products->pluck('name', 'id'), null, ['placeholder'=>'Product Name', 'id'=>'product-name', 'class'=>"form-control select2", 'required'=>'required']) }}
+                                </div>
+                            </div> 
 
                         </div>
     
@@ -117,7 +114,6 @@
        if($("#product-code").val() != id){
            $("#product-code").select2('val',id);
        }
-
      });
 </script>
 

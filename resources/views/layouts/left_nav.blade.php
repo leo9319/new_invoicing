@@ -141,9 +141,24 @@
                 @role('Super Admin|Admin|Brand Manager|Customer Service')
                 <li class="app-sidebar__heading">Sales</li>
                 <li>
-                    <a href="{{ route('sales.index') }}">
+                    <a href="#">
                         <i class="metismenu-icon pe-7s-note2"></i> Invoices
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('sales.index') }}">
+                                <i class="metismenu-icon">
+                                    </i> Invoice List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sales.generate_invoices') }}">
+                                <i class="metismenu-icon">
+                                    </i> Generate Invoices
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endrole
                 <li class="app-sidebar__heading">Reports</li>
