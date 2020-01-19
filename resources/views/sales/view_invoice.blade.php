@@ -131,6 +131,21 @@
 				<td colspan="1"><b>{{ $sale->totalSaleAfterDeliveryAndDiscount() }}</b></td>
 			</tr>
 
+			@if($sale->advance_payment)
+			<tr>
+				<td colspan="3"></td>
+				<td colspan="1">Paid in advance</td>
+				<td colspan="1"></td>
+				<td colspan="1"><b>{{ $sale->totalSaleAfterDeliveryAndDiscount() }}</b></td>
+			</tr>
+			<tr>
+				<td colspan="3"></td>
+				<td colspan="1">Total Payable</td>
+				<td colspan="1"></td>
+				<td colspan="1"><b>0</b></td>
+			</tr>
+			@endif
+
 		</table>
 		<div id="terms">
 		  {{-- <div>If you have any questions concerning this invoice, contact us @ 01929000400.</div> --}}

@@ -60,13 +60,17 @@ class SaleController extends Controller
     {
         // return $request->all();
         $this->validate($request, [
-            'date' => 'required',
-            'client_name' => 'required',
-            'delivery_company_id' => 'required',
-            'client_phone' => 'required',
-            'client_address' => 'required',
-            'product_id' => 'required',
-        ]);
+                'date' => 'required',
+                'client_name' => 'required',
+                'delivery_company_id' => 'required',
+                'client_phone' => 'required',
+                'client_address' => 'required',
+                'product_id' => 'required',
+            ],
+            [
+                'delivery_company_id.required' => 'Please select the delivery zone correctly',
+            ]
+        );
 
         // get the discount count of the current latest campaign
         $discount =  Discount::where('start_date', '<=', Carbon\Carbon::now())
@@ -83,6 +87,7 @@ class SaleController extends Controller
         $sale->client_phone = $request->client_phone;
         $sale->client_email = $request->client_email;
         $sale->client_address = $request->client_address;
+        $sale->advance_payment = $request->advance_payment ? 1 : 0;
         $sale->save();
 
         foreach ($request->product_id as $index => $product_id) {

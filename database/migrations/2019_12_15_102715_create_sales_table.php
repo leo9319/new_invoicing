@@ -23,6 +23,7 @@ class CreateSalesTable extends Migration
             $table->string('client_address');
             $table->string('client_phone');
             $table->string('client_email')->nullable();
+            $table->string('advance_payment')->default(0);
             $table->enum('handed_over', ['yes', 'no']);
             $table->enum('delivered', ['yes', 'no', 'cancelled']);
             $table->timestamps();
