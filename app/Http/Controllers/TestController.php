@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Test;
 use App\Product;
+use App\Sale;
+use App\Test;
+use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
@@ -15,13 +16,19 @@ class TestController extends Controller
      */
     public function index()
     {
-        $product = Product::find(4);
+        // $product = Product::find(4);
 
-        return $product->voucher->discount_percentage;
+        // return $product->voucher->discount_percentage;
 
-        $data['tests'] = Test::all();
+        // $data['tests'] = Test::all();
 
-        return view('tests.index', $data);
+        // return view('tests.index', $data);
+
+        // return Sale::with('products')->get();
+
+        return Sale::with(['products' => function($query){
+           $query->sum('quantity');
+        }])->get();
     }
 
     /**

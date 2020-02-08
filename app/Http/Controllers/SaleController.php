@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\CompanyName;
 use App\Discount;
+use App\District;
+use App\Inventory;
 use App\Product;
 use App\Sale;
 use App\SaleProduct;
@@ -44,8 +46,9 @@ class SaleController extends Controller
     {
         $data['vouchers'] = Voucher::where('start_date', '<=', Carbon\Carbon::now())
         ->where('end_date', '>=', Carbon\Carbon::now())->get();
-        $data['products'] = Product::all();
+        $data['inventories'] = Inventory::all();
         $data['company_names'] = CompanyName::all();
+        $data['company_districts'] = District::all();
 
         return view('sales.create', $data);
     }

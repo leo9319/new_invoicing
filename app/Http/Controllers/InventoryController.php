@@ -124,9 +124,9 @@ class InventoryController extends Controller
                         ->with('success','Inventory removed successfully');
     }
 
-    public function getProduct(Request $request)
+    public function getInventoryInfo(Request $request)
     {
-        $product = Inventory::where('product_id', $request->id)->first();
+        $product = Inventory::where('product_id', $request->product_id)->first();
 
         return response()->json($product);
     }

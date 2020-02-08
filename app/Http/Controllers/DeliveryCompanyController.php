@@ -128,8 +128,12 @@ class DeliveryCompanyController extends Controller
                         ->with('success','Delivery Company deleted successfully');
     }
 
-    public function getZone(Request $request)
+    public function getCompanyZone(Request $request) 
     {
-        return DeliveryCompany::where('company_name_id', $request->company_name_id)->where('district_id', $request->district_id)->get();
+        $data = DeliveryCompany::where('company_name_id', $request->company_name_id)
+                ->where('district_id', $request->company_district_id)
+                ->get();
+
+        return $data;
     }
 }

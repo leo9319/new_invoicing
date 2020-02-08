@@ -52,21 +52,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($vouchers as $index => $test)
+                                    @foreach($vouchers as $index => $voucher)
                                     <tr>
                                         <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $test->start_date }}</td>
-                                        <td>{{ $test->end_date }}</td>
-                                        <td>{{ $test->influencer_code }}</td>
-                                        <td>{{ $test->product->name }}</td>
-                                        <td>{{ $test->discount_percentage . '%' }}</td>
+                                        <td>{{ $voucher->start_date }}</td>
+                                        <td>{{ $voucher->end_date }}</td>
+                                        <td>{{ $voucher->influencer_code }}</td>
+                                        <td>{{ $voucher->product->name ?? 'N/A'}}</td>
+                                        <td>{{ $voucher->discount_percentage . '%' }}</td>
                                         @if(auth()->user()->can('voucher-edit') || auth()->user()->can('voucher-delete'))
                                         <td>
                                             @can('voucher-edit')
-                                            <a class="btn btn-primary" href="{{ route('vouchers.edit', $test->id) }}">Edit</a>
+                                            <a class="btn btn-primary" href="{{ route('vouchers.edit', $voucher->id) }}">Edit</a>
                                             @endcan
                                             @can('voucher-delete')
-                                            {!! Form::open(['method' => 'DELETE','route' => ['vouchers.destroy', $test->id],'style'=>'display:inline']) !!}
+                                            {!! Form::open(['method' => 'DELETE','route' => ['vouchers.destroy', $voucher->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                                             {!! Form::close() !!}
                                             @endcan

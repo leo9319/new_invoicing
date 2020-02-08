@@ -144,20 +144,20 @@
                                         <td>{{ ucfirst($sale->delivered ?? 'N/A') }}</td>
                                         @if(auth()->user()->can('sale-edit') || auth()->user()->can('sale-delete')|| auth()->user()->can('sale-view'))
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('sales.show', $sale->id) }}">View</a>
+                                            <a class="btn btn-info btn-sm" href="{{ route('sales.show', $sale->id) }}">View</a>
                                             @can('sale-edit')
-                                            <a class="btn btn-primary" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
                                             @endcan
                                             @can('sale-delete')
                                             {!! Form::open(['method' => 'DELETE','route' => ['sales.destroy', $sale->id],'style'=>'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                             {!! Form::close() !!}
                                             @endcan
                                         </td>
                                         @endif
                                         <td>
                                             @if($sale->delivered == 'cancelled')
-                                            <a class="btn btn-warning" href="{{ route('sales.returned_products', $sale->id) }}">Returned Products</a>
+                                            <a class="btn btn-warning btn-sm" href="{{ route('sales.returned_products', $sale->id) }}">Returned Products</a>
                                             @else
                                             @endif
                                         </td>
