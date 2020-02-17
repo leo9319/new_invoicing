@@ -56,7 +56,7 @@
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                                     <a href="{{ route('users.show', auth()->user()->id) }}" tabindex="0" class="dropdown-item">My Profile</a>
-                                    <a href="{{ route('users.show', auth()->user()->id) }}" tabindex="0" class="dropdown-item">Reset Password</a>
+                                    <a href="{{ url('/password/reset') }}" tabindex="0" class="dropdown-item">Reset Password</a>
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

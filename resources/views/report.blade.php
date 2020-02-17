@@ -45,7 +45,7 @@
 			<tr>
 				<td>{{ 'IN' . sprintf('%06d', ($sale->id)) }}</td>
 				<td>{{ Carbon\Carbon::parse($sale->date)->format('d/m/y') }}</td>
-				<td>{{ $sale->discount->name }}</td>
+				<td>{{ $sale->discount->name ?? 'N/A' }}</td>
 				<td>{{ $sale->client_name }}</td>
 				<td>{{ $sale->client_address }}</td>
 				<td>{{ $sale->client_phone }}</td>
@@ -59,7 +59,11 @@
 				<td>{{ $quantity }}</td>
 				<td>{{ implode(", ", $product_mrps) }}</td>
 				<td>{{ $sale->totalProductPrice() }}</td>
+				@if(isset( $sale->discount))
 				<td>{{ $sale->discount->amount ?? $sale->discount->percentage }}</td>
+				@else
+				<td></td>
+				@endif
 				<td>{{ $sale->deliveryCompany->rate }}</td>
 				<td>{{ $sale->totalSaleAfterDeliveryAndDiscount() }}</td>
 			</tr>
