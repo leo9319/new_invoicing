@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Test as TestResource;
 use App\Product;
 use App\Sale;
 use App\Test;
@@ -16,19 +17,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        // $product = Product::find(4);
+        $data['tests'] = Test::all();
 
-        // return $product->voucher->discount_percentage;
-
-        // $data['tests'] = Test::all();
-
-        // return view('tests.index', $data);
-
-        // return Sale::with('products')->get();
-
-        return Sale::with(['products' => function($query){
-           $query->sum('quantity');
-        }])->get();
+        return view('tests.index', $data);
     }
 
     /**
@@ -116,8 +107,12 @@ class TestController extends Controller
                         ->with('success','Test deleted successfully');
     }
 
-    public function table()
+    public function test()
     {
-        return view('tests.table');
+        $tests = Test::all();
+
+        return TestResource::collection(Test::all());
+
+        return response()->json($tests);
     }
 }

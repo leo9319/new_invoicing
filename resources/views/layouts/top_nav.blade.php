@@ -33,7 +33,7 @@
         <div class="app-header-left">
             <ul class="header-menu nav">
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link">
+                    <a href="{{ route('reports.sales') }}" class="nav-link">
                         <i class="nav-link-icon fa fa-database"> </i> Reports
                     </a>
                 </li>

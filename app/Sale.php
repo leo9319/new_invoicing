@@ -10,7 +10,7 @@ class Sale extends Model
 
     public function products() 
     {
-      	return $this->belongsToMany('App\Product')->withPivot('id', 'quantity', 'price', 'returned');
+      	return $this->belongsToMany('App\Product')->withPivot('id', 'quantity', 'price', 'returned', 'remarks');
     }
 
     public function deliveryCompany() 
@@ -43,17 +43,13 @@ class Sale extends Model
     {
       $total = $this->totalProductPrice();
 
-      if($total != 0) {
+      if($total != 0 && isset($this->discount)) {
         if($this->discount->amount) {
           $total = $total - $this->discount->amount;
         }
 
         $total = $total - ($total * $this->discount->percentage)/100;
-      } else {
-        $total = 0;
       }
-
-      
 
       return $total;
     }

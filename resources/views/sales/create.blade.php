@@ -29,7 +29,7 @@
                       </div>
                     @endif
                     
-                    {{ Form::open(['route'=>'sales.store', 'autocomplete'=>'off']) }}
+                    {{ Form::open(['route'=>'sales.store']) }}
 
                     <div class="d-flex justify-content-between"><h5 class="card-title">Please provide the necessary information</h5>
                     
@@ -373,8 +373,11 @@
             mrp.val('');
             var productId = $(this).val();
 
+            // alert(productId);
+
             if($(this).parent().parent().parent().find('.product-name').val() != productId) {
-                $(this).parent().parent().parent().find('.product-name').select2('val', productId);
+                // alert(productId);
+                $(this).parent().parent().parent().find('.product-name').val(productId).trigger('change');
             }
 
             $.ajax({
@@ -398,7 +401,7 @@
             var productId = $(this).val();
 
             if($(this).parent().parent().parent().find('.product-code').val() != productId) {
-                $(this).parent().parent().parent().find('.product-code').select2('val', productId);
+                $(this).parent().parent().parent().find('.product-code').val(productId).trigger('change');
             }
 
             $.ajax({

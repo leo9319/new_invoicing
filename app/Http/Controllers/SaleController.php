@@ -99,12 +99,12 @@ class SaleController extends Controller
 
             $product = Product::find($product_id);
 
-            if($product->voucher->id ?? 0 == $request->voucher_id) {
+            if(isset($request->voucher_id) && ($product->voucher->id == $request->voucher_id)) {
                 $price = $request->mrp[$index] - ($request->mrp[$index] * ($product->voucher->discount_percentage))/100;
             }
 
             $sale->products()->attach([
-                $product_id => ['quantity' => $request->quantity[$index], 'price' => $price, 'remarks' => $request->remarks],
+                $product_id => ['quantity' => $request->quantity[$index], 'price' => $price, 'remarks' => $request->remarks[$index]],
             ]);
 
             $product->removeFromInventory($request->quantity[$index]);

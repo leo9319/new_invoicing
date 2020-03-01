@@ -15,7 +15,7 @@
 
 @section('content')
 
-<div class="app-main__inner">
+{{-- <div class="app-main__inner">
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
@@ -66,10 +66,17 @@
                 
                 <div class="d-block text-center card-footer">
                 </div>
+
+                <div id="app">
+                    
+                </div>
                 
             </div>
         </div>
     </div>
+</div> --}}
+<div id="app">
+    <tests></tests>
 </div>
 
 @endsection

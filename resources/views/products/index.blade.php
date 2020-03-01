@@ -40,7 +40,7 @@
                             <table id="products" class="align-middle mb-0 table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID.</th>
+                                        <th>SL.</th>
                                         <th>Code</th>
                                         <th>Name</th>
                                         <th>Brand</th>

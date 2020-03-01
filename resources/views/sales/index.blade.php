@@ -8,7 +8,9 @@
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        var table = $('#sales').DataTable();
+        var table = $('#sales').DataTable({
+            "order": [[0, "desc"]]
+        });
  
         $('#sales tbody').on( 'click', 'tr', function () {
             $(this).toggleClass('selected');
@@ -136,7 +138,7 @@
                                         <td class="text-muted">
                                             <a href="{{ route('sales.view_invoice', $sale->id) }}">{{ 'IN' . sprintf('%06d', ($sale->id)) }}</a>
                                         </td>
-                                        <td>{{ Carbon\Carbon::parse($sale->date)->format('d M y') }}</td>
+                                        <td>{{ Carbon\Carbon::parse($sale->date)->format('d-m-Y') }}</td>
                                         <td>{{ $sale->client_name }}</td>
                                         <td>{{ $sale->client_address }}</td>
                                         <td>{{ $sale->client_phone }}</td>
