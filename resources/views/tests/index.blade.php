@@ -2,20 +2,9 @@
 
 @section('title', 'Test') 
 
-@section('header_scripts')
-
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready( function () {
-        $('#tests').DataTable();
-    } );
-</script>
-@stop
-
 @section('content')
 
-{{-- <div class="app-main__inner">
+<div class="app-main__inner">
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
@@ -46,18 +35,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($tests as $index => $test)
-                                    <tr>
-                                        <td class="text-muted">{{ $index + 1 }}</td>
-                                        <td>{{ $test->name }}</td>
+                                    <tr v-for="(test, index) in tests">
+                                        <td class="text-muted">@{{ index + 1 }}</td>
+                                        <td>@{{ test.name }}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{ route('tests.edit', $test->id) }}">Edit</a>
-                                            {!! Form::open(['method' => 'DELETE','route' => ['tests.destroy', $test->id],'style'=>'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                            {!! Form::close() !!}
+                                            <button class="btn btn-info button-2" @click="editTest(test)">Edit</button>
+                                            <button class="btn btn-danger button-2" @click="deleteTest(test.id)">Delete</button>                                          
                                         </td>
                                     </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -66,24 +51,84 @@
                 
                 <div class="d-block text-center card-footer">
                 </div>
-
-                <div id="app">
-                    
-                </div>
                 
             </div>
         </div>
     </div>
-</div> --}}
-<div id="app">
-    <tests></tests>
+</div>
+
+@endsection
+
+@section('modal')
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form @submit.prevent="formSubmit">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" v-model="test.name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @endsection
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            tests: [],
+            test: {
+                id: '',
+                name: ''
+            }
+        },
+        created() {
+            this.fetchTests();
+        },
+        methods: {
+            fetchTests() {
+                axios.get('api/test')
+                    .then(response => this.tests = response.data.data);
+            },
+            deleteTest(id) {
+                axios.delete(`api/test/${id}`)
+                    .then(() => this.fetchTests());
+            },
+            editTest(test) {
+                $('#exampleModal').modal();
+                this.test.id = test.id;
+                this.test.name = test.name;
+            },
+            formSubmit() {
+                axios.put(`api/test/${this.test.id}`, { name: this.test.name })
+                    .then(() => this.fetchTests());
+                $('#exampleModal').modal('toggle');
+            }
+            
+        }
+    })
+</script>
 
 @endsection

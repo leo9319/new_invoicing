@@ -31,7 +31,12 @@
 		<tbody>
 		@foreach($sales as $index => $sale)
 			
-			@php $quantity = 0; @endphp
+			@php 
+				$quantity = 0;
+				$product_names = array();
+				$product_codes = array();
+				$product_mrps  = array();
+			@endphp
 
 			@foreach($sale->products as $product)
 				@php

@@ -89,9 +89,8 @@ class TestController extends Controller
         $test->name = $request->input('name');
         $test->save();
 
+        // return $request->all();
 
-        return redirect()->route('tests.index')
-                        ->with('success','Test updated successfully');
     }
 
     /**
@@ -103,8 +102,6 @@ class TestController extends Controller
     public function destroy(Test $test)
     {
         $test->delete();
-        return redirect()->route('tests.index')
-                        ->with('success','Test deleted successfully');
     }
 
     public function test()

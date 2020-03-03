@@ -18,3 +18,5 @@ use Illuminate\Http\Request;
 // });
 
 Route::get('/test', 'TestController@test');
+Route::put('/test/{test}', 'TestController@update');
+Route::delete('/test/{test}', 'TestController@destroy');

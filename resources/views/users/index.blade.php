@@ -2,17 +2,6 @@
 
 @section('title', 'All Users') 
 
-@section('header_scripts')
-
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready( function () {
-        $('#users').DataTable();
-    } );
-</script>
-@stop
-
 @section('content')
 
 <div class="app-main__inner">
@@ -93,6 +82,5 @@
 @section('footer_scripts')
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 @endsection
