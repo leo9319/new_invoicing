@@ -177,7 +177,7 @@
                                 <div class="form-group">
     
                                     {{ Form::label('mrp') }}
-                                    {{ Form::text('mrp[]', null, ['class'=>'mrp form-control', 'readonly']) }}
+                                    {{ Form::text('mrp[]', null, ['class'=>'mrp form-control', 'readonly', 'required']) }}
                                     
                                 </div>
                                 

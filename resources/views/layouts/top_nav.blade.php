@@ -55,7 +55,7 @@
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{ route('users.show', auth()->user()->id) }}" tabindex="0" class="dropdown-item">My Profile</a>
+                                    <a href="#" tabindex="0" class="dropdown-item">My Profile</a>
                                     <a href="{{ url('/password/reset') }}" tabindex="0" class="dropdown-item">Reset Password</a>
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

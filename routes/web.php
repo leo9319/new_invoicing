@@ -21,9 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('tests','TestController')->except(['destroy', 'update']);;
-    Route::resource('roles','RoleController');
+    Route::resource('roles','RoleController')->except(['store']);
     Route::resource('permissions','PermissionController');
-    Route::resource('users','UserController');
+    Route::resource('users','UserController')->except(['show', 'edit', 'update', 'delete']);
     Route::resource('brands','BrandController');
     Route::resource('brand-users','BrandUserController');
     Route::resource('products','ProductController');
@@ -51,3 +51,5 @@ Route::get('/update-delivery-status', 'SaleController@updateDeliveryStatus')->na
 Route::get('reports-sales', 'ReportController@sales')->name('reports.sales');
 Route::get('getInventoryInfo', 'InventoryController@getInventoryInfo');
 Route::get('/table', 'TestController@table');
+
+// Route::get('/get-all-roles', 'RoleController@getAllRoles');

@@ -5,83 +5,7 @@
 @section('header_scripts')
 
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var table = $('#sales').DataTable({
-            "order": [[0, "desc"]]
-        });
- 
-        $('#sales tbody').on( 'click', 'tr', function () {
-            $(this).toggleClass('selected');
-        });
- 
-        $('#button').click( function () {
-            if(table.rows('.selected').data().length > 0) {
-                var rows = table.rows('.selected').data();
-                var saleIds = [];
 
-                for (i = 0; i < rows.length; i++) {
-                    
-                    saleIds.push(rows[i][0]);
-                }
-
-                $.ajax({
-                    type: 'get',
-                    url: '{!!URL::to('update-handling-status')!!}',
-                    data: {'sale_ids': saleIds},
-                    success:function(data){
-                        location.reload();
-                    },
-                    error:function(){
-                        console.log('failure');
-                    }
-                });
-
-            } else {
-                console.log('does not exist');
-            }
-        });
-
-        $('#delivery-submit').click( function () {
-
-            if(table.rows('.selected').data().length > 0) {
-                var rows = table.rows('.selected').data();
-                var saleIds = [];
-
-                for (i = 0; i < rows.length; i++) {
-                    
-                    saleIds.push(rows[i][0]);
-                }
-
-                var status = document.getElementById('delivery-status');
-                var strUser = status.options[status.selectedIndex].value;
-
-                $.ajax({
-                    type: 'get',
-                    url: '{!!URL::to('update-delivery-status')!!}',
-                    data: {
-                        'sale_ids': saleIds,
-                        'status': strUser,
-                    },
-                    success:function(data){
-                        location.reload();
-                    },
-                    error:function(){
-                        console.log('failure');
-                    }
-                });
-
-            } else {
-                console.log('does not exist');
-            }
-
-            
-
-
-        });
-} );
-</script>
 @stop
 
 @section('content')
@@ -215,7 +139,82 @@
 
 @section('footer_scripts')
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#sales').DataTable({
+            "order": [[0, "desc"]]
+        });
+ 
+        $('#sales tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('selected');
+        });
+ 
+        $('#button').click( function () {
+            if(table.rows('.selected').data().length > 0) {
+                var rows = table.rows('.selected').data();
+                var saleIds = [];
+
+                for (i = 0; i < rows.length; i++) {
+                    
+                    saleIds.push(rows[i][0]);
+                }
+
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('update-handling-status')!!}',
+                    data: {'sale_ids': saleIds},
+                    success:function(data){
+                        location.reload();
+                    },
+                    error:function(){
+                        console.log('failure');
+                    }
+                });
+
+            } else {
+                console.log('does not exist');
+            }
+        });
+
+        $('#delivery-submit').click( function () {
+
+            if(table.rows('.selected').data().length > 0) {
+                var rows = table.rows('.selected').data();
+                var saleIds = [];
+
+                for (i = 0; i < rows.length; i++) {
+                    
+                    saleIds.push(rows[i][0]);
+                }
+
+                var status = document.getElementById('delivery-status');
+                var strUser = status.options[status.selectedIndex].value;
+
+                $.ajax({
+                    type: 'get',
+                    url: '{!!URL::to('update-delivery-status')!!}',
+                    data: {
+                        'sale_ids': saleIds,
+                        'status': strUser,
+                    },
+                    success:function(data){
+                        location.reload();
+                    },
+                    error:function(){
+                        console.log('failure');
+                    }
+                });
+
+            } else {
+                console.log('does not exist');
+            }
+
+            
+
+
+        });
+} );
+</script>
 
 @endsection

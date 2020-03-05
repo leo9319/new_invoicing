@@ -6,6 +6,7 @@ use App\Http\Resources\Test as TestResource;
 use App\Product;
 use App\Sale;
 use App\Test;
+use App\User;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -17,9 +18,10 @@ class TestController extends Controller
      */
     public function index()
     {
-        $data['tests'] = Test::all();
+        // return User::with('roles')->find(3);
+        // $data['tests'] = Test::all();
 
-        return view('tests.index', $data);
+        // return view('tests.index', $data);
     }
 
     /**

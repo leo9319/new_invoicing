@@ -17,6 +17,13 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+Route::get('/users/get-all-users', 'UserController@getAllUsers');
+Route::post('/users/store', 'UserController@store');
+Route::put('/users/{user}', 'UserController@update');
+Route::delete('/users/{user}', 'UserController@destroy');
+
+Route::get('/roles/get-all-roles', 'RoleController@getAllRoles');
+
 Route::get('/test', 'TestController@test');
 Route::put('/test/{test}', 'TestController@update');
 Route::delete('/test/{test}', 'TestController@destroy');
