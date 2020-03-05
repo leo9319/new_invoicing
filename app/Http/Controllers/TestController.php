@@ -18,6 +18,8 @@ class TestController extends Controller
      */
     public function index()
     {
+        $user = User::find(10);
+        return $user->getAllPermissionsAttribute();
         // return User::with('roles')->find(3);
         // $data['tests'] = Test::all();
 

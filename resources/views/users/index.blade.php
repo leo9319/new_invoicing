@@ -3,77 +3,13 @@
 @section('title', 'All Users') 
 
 @section('content')
-
-<div class="app-main__inner">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="main-card mb-3 card">
-                <div class="card-header mb-3">All Users
-                    <div class="btn-actions-pane-right">
-
-                        @can('user-create')
-                            <div roles="group" class="btn-group-sm btn-group">
-                                <button class="btn btn-success" @click="addNewUser"> Add New User</button>
-                            </div>
-                        @endcan
-
-                    </div>
-                </div>
-
-                <div class="alert alert-success" v-if="message">
-                  <p>@{{ message }}</p>
-                </div>
-
-                <div class="table-responsive">
-                    <div class="container">
-                        <table id="users" class="align-middle table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID.</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Roles</th>
-                                    @if(auth()->user()->can('user-edit') || auth()->user()->can('user-delete')|| auth()->user()->can('user-show'))
-                                    <th>Actions</th>
-                                    @endif
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr 
-                                    v-for="(user, index) in users"
-                                    :key="user.id"
-                                >
-                                    <td class="text-muted">@{{ user.id }}</td>
-                                    <td>@{{ user.name }}</td>
-                                    <td>@{{ user.email }}</td>
-                                    <td>
-                                        <label class="badge badge-success">@{{ user.roles[0].name }}</label>
-                                    </td>
-                                    <td>
-                                        @can('user-edit')
-                                        <button class="btn btn-primary btn-sm" @click="editUser(user)">Edit</button>
-                                        @endcan
-                                        @can('user-delete')
-                                        <button class="btn btn-danger btn-sm" @click="deleteUser(user.id)">Delete</button>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="d-block text-center card-footer">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<users></users>
 
 @endsection
 
 @section('modal')
 
-<div class="modal fade" id="userModal" tabindex="-1" roles="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="userModal" tabindex="-1" roles="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" roles="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -188,9 +124,9 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+{{-- <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -205,14 +141,14 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 
 @section('footer_scripts')
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script>
+{{-- <script>
     class Errors {
         constructor() {
             this.errors = {};
@@ -351,6 +287,6 @@
             this.getRoles()
         }
     })
-</script>
+</script> --}}
 
 @endsection

@@ -18,9 +18,11 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import Permissions from './mixins/Permissions';
+Vue.mixin(Permissions);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('tests', require('./components/Tests.vue').default);
+Vue.component('users', require('./components/Users.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -42,5 +44,15 @@ class User extends Authenticatable
     public function brands()
     {
         return $this->belongsToMany('App\Brand')->withTimestamps();
+    }
+
+    public function getAllPermissionsAttribute() {
+        $permissions = [];
+            foreach (Permission::all() as $permission) {
+                if (Auth::user()->can($permission->name)) {
+                    $permissions[] = $permission->name;
+                }
+            }
+        return $permissions;
     }
 }
