@@ -17,18 +17,25 @@
         <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
             <div class="main-card mb-3 card">
                 <div class="card-body">
+
                     @if (count($errors) > 0)
-                      <div class="alert alert-danger">
-                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                        <ul>
-                           @foreach ($errors->all() as $error)
-                             <li>{{ $error }}</li>
-                           @endforeach
-                        </ul>
-                      </div>
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success mb-3">
+                            {{ $message }}
+                        </div>
                     @endif
                     
-                    {{ Form::open(['route'=>'sales.store']) }}
+                    {{ Form::open(['route'=>'sales.store', 'onsubmit'=>'saleSubmit.disabled = true']) }}
 
                     <div class="d-flex justify-content-between"><h5 class="card-title">Please provide the necessary information</h5>
                     
@@ -47,7 +54,7 @@
                             <div class="col-md-12">
                                 <div class="position-relative form-group">
                                     {{ Form::label('date', 'Date') }}
-                                    {{ Form::date('date', Carbon\Carbon::now(), ['class'=>"form-control", 'required'=>'required', 'readonly']) }}
+                                    {{ Form::datetime('date', Carbon\Carbon::now(new DateTimeZone('Asia/Dhaka'))->toDateTimeString(), ['class'=>"form-control", 'required'=>'required', 'readonly']) }}
                                 </div>
                             </div>
 
@@ -78,7 +85,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     {{ Form::label('client_phone', 'Phone') }}
-                                    {{ Form::number('client_phone', null, ['placeholder'=>'Phone', 'class'=>"form-control", 'required'=>'required']) }}
+                                    {{ Form::text('client_phone', null, ['placeholder'=>'Phone', 'class'=>"form-control", 'pattern'=>"[0-9]{11}", 'required'=>'required']) }}
                                 </div>
                             </div>
 
@@ -200,7 +207,7 @@
 
                         <button type="button" class="add btn btn-block btn-info mt-2">Add More Product</button>
 
-                        {{ Form::submit('Create', ['class'=>"mt-3 mr-2 btn btn-success btn-lg btn-block"]) }}
+                        {{ Form::submit('Create', ['class'=>"mt-3 mr-2 btn btn-success btn-lg btn-block", 'name'=>'saleSubmit']) }}
                     </div>
 
                     {{ Form::close() }}
@@ -292,7 +299,7 @@
                             <div class="form-group">
     
                                 {{ Form::label('mrp') }}
-                                {{ Form::text('mrp[]', null, ['class'=>'mrp form-control', 'readonly']) }}
+                                {{ Form::text('mrp[]', null, ['class'=>'mrp form-control', 'readonly', 'required']) }}
                                 
                             </div>
                             
@@ -372,13 +379,13 @@
         $(".product-code").change(function() {
 
             var mrp = $(this).parent().parent().parent().find('.mrp');
+            var quantity = $(this).parent().parent().parent().find('.quantity');
+            quantity.prop('disabled', false);
+            quantity.attr("placeholder", "Quantity");
             mrp.val('');
             var productId = $(this).val();
 
-            // alert(productId);
-
             if($(this).parent().parent().parent().find('.product-name').val() != productId) {
-                // alert(productId);
                 $(this).parent().parent().parent().find('.product-name').val(productId).trigger('change');
             }
 
@@ -387,6 +394,10 @@
                 url: '{!!URL::to('getInventoryInfo')!!}',
                 data: {'product_id': productId},
                 success:function(data) {
+                    if(data.quantity <= 0) {
+                        quantity.attr("placeholder", "Not enough quantity");
+                        quantity.prop('disabled', true);
+                    }
                     mrp.val(data.mrp);
                 },
                 error:function(){
@@ -399,6 +410,9 @@
         $(".product-name").change(function() {
 
             var mrp = $(this).parent().parent().parent().find('.mrp');
+            var quantity = $(this).parent().parent().parent().find('.quantity');
+            quantity.prop('disabled', false);
+            quantity.attr("placeholder", "Quantity");
             mrp.val('');
             var productId = $(this).val();
 
@@ -411,6 +425,10 @@
                 url: '{!!URL::to('getInventoryInfo')!!}',
                 data: {'product_id': productId},
                 success:function(data) {
+                    if(data.quantity <= 0) {
+                        quantity.attr("placeholder", "Not enough quantity");
+                        quantity.prop('disabled', true);
+                    }
                     mrp.val(data.mrp);
                 },
                 error:function(){

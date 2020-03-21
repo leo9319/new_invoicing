@@ -72,7 +72,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return $request->all();
+        return (['message' => 'The user has been created!']);
     }
 
 
@@ -151,7 +151,7 @@ class UserController extends Controller
 
     public function getAllUsers()
     {
-        return User::with(['roles' => function($query){
+        return User::select('id', 'name', 'email')->with(['roles' => function($query){
             $query->select('name');
         }])->get();
     }

@@ -2,14 +2,11 @@
 <html lang="zxx">
 
 <head>
-    <title>MyAura | Home</title>
+    <title>My Aura | Home</title>
     <meta charset="UTF-8">
     <meta name="description" content="SolMusic HTML Template">
     <meta name="keywords" content="music, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicon -->
-    <link href="{{ asset('img/favicon.ico') }}" rel="shortcut icon" />
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">

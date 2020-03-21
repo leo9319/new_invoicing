@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
@@ -63,5 +64,20 @@ class Sale extends Model
     {
       return $this->getTotalAfterDiscount() + $this->deliveryCompany->rate;
     }
+
+    public static function salesOnDay($day)
+    {
+      return static::whereDate('date', $day)->get()->count();
+    }
+
+    public static function increaseInSale()
+    {
+      $today = static::salesOnDay(Carbon::today());
+      $yesterday = static::salesOnDay(Carbon::yesterday());
+
+      return $yesterday ? (($today - $yesterday) / $yesterday) * 100 : 0;
+    }
+
+
 
 }

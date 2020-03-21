@@ -41,6 +41,7 @@ Route::get('returned-products/{sale}', 'SaleController@returnedProducts')->name(
 Route::post('returned-products/', 'SaleController@storeReturnedProducts')->name('sales.store_returned_products');
 Route::get('generate-invoices/', 'SaleController@generateInvoices')->name('sales.generate_invoices');
 Route::post('generate-invoices/', 'SaleController@storeGenerateInvoices');
+Route::get('bulk-delete/', 'SaleController@bulkDelete');
 
 Route::get('/get-product', 'InventoryController@getProduct')->name('get_product');
 Route::get('/get-company', 'CompanyNameController@getCompany')->name('get_company');

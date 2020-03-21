@@ -7,6 +7,7 @@ use App\Product;
 use App\Sale;
 use App\Test;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -18,12 +19,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        $user = User::find(10);
-        return $user->getAllPermissionsAttribute();
-        // return User::with('roles')->find(3);
-        // $data['tests'] = Test::all();
-
-        // return view('tests.index', $data);
+        return Sale::salesOnDay(Carbon::now()->toDateString());
+        // return Carbon::now()->toDateString();
     }
 
     /**

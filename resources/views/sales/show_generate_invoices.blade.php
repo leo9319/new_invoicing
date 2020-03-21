@@ -58,7 +58,7 @@
 				<table id="meta">
 					<tr>
 	                    <td class="meta-head">Date</td>
-	                    <td>{{ $sale->date }}</td>
+	                    <td>{{ Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
 	                </tr>
 	                <tr>
 	                    <td class="meta-head">Invoice #</td>

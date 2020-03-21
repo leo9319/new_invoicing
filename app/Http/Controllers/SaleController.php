@@ -61,7 +61,6 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
         $this->validate($request, [
                 'date' => 'required',
                 'client_name' => 'required',
@@ -110,8 +109,7 @@ class SaleController extends Controller
             $product->removeFromInventory($request->quantity[$index]);
         }
 
-        return redirect()->route('sales.index')
-                        ->with('success','Sale created successfully');
+        return redirect()->back()->with('success','Invoice created successfully');
     }
 
     /**
@@ -235,5 +233,15 @@ class SaleController extends Controller
         $sales = Sale::whereBetween('date', [$request->start_date, $request->end_date])->get();
 
         return view('sales.show_generate_invoices', compact('sales'));
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $sales = Sale::whereIn('id', $request->sale_ids)->get();
+
+        foreach ($sales as $sale) {
+            $sale->products()->detach();
+            $sale->delete();
+        }
     }
 }

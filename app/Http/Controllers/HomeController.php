@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Sale;
 use App\Product;
+use App\Sale;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,9 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['total_orders']   = Sale::all()->count();
-        $data['total_products'] = Product::all()->count();
-
+        $sales                      = Sale::query();
+        $data['total_orders']       = $sales->count();
+        $data['total_orders_today'] = Sale::salesOnDay(Carbon::today());
+        $data['increase_in_sales']  = Sale::increaseInSale();
+        $data['total_products']     = Product::all()->count();
+        
         return view('home', $data);
     }
 }

@@ -28,14 +28,14 @@
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         {{ Form::label('start_date') }}
-                                        {{ Form::date('start_date', Carbon\Carbon::now(), ['class'=>"form-control", 'required'=>'required']) }}
+                                        {!! Form::input('datetime-local', 'start_date', Carbon\Carbon::now(new DateTimeZone('Asia/Dhaka'))->subDays(1)->format('Y-m-d\TH:i'), ['class' => 'form-control']) !!}
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         {{ Form::label('end_date') }}
-                                        {{ Form::date('end_date', Carbon\Carbon::now(), ['class'=>"form-control", 'required'=>'required']) }}
+                                        {!! Form::input('datetime-local', 'end_date', Carbon\Carbon::now(new DateTimeZone('Asia/Dhaka'))->format('Y-m-d\TH:i'), ['class' => 'form-control']) !!}
                                     </div>
                                 </div>
     

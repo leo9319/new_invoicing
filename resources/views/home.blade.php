@@ -15,7 +15,7 @@
                             <div class="widget-subheading">All the sales made</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-white"><span>{{ $total_orders }}</span></div>
+                            <div class="widget-numbers text-white"><span>{{ $total_orders }}({{ $total_orders_today }})</span></div>
                         </div>
                     </div>
                 </div>
@@ -37,11 +37,11 @@
                 <div class="card mb-3 widget-content bg-grow-early">
                     <div class="widget-content-wrapper text-white">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Followers</div>
-                            <div class="widget-subheading">People Interested</div>
+                            <div class="widget-heading">Increase in Sales</div>
+                            <div class="widget-subheading">Compared to Yesterday's data</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-white"><span>46%</span></div>
+                            <div class="widget-numbers text-white"><span>{{ number_format((float)$increase_in_sales, 2) }}%</span></div>
                         </div>
                     </div>
                 </div>
@@ -67,10 +67,10 @@
                         <div class="card-header-title">
                             <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i> Sales Report
                         </div>
-                        <ul class="nav">
+{{--                         <ul class="nav">
                             <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
                             <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
-                        </ul>
+                        </ul> --}}
                     </div>
                     <div class="card-body">
                         <div class="tab-content">

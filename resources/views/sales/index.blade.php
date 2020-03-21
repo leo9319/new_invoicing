@@ -20,10 +20,14 @@
                         @can('sale-create')
                         <div role="group" class="btn-group-sm btn-group">
                             <a class="btn btn-success" href="{{ route('sales.create') }}"> Create Invoice</a>
-                            <span class="p-1">|</span>
-                            <button id="button" class="btn btn-alternate" href="#"> Handed Over</button>
-                            <span class="p-1">|</span>
-                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Delivered</button>
+                            @can('sale-delete')
+                            {{-- <a class="btn btn-danger ml-2" href="#"><i class="fas fa-trash-alt"></i></a> --}}
+                            <button class="btn btn-danger ml-2" id="bulk-delete"><i class="fas fa-trash-alt"></i></button>
+                            @endcan
+                            {{-- <span class="p-1">|</span> --}}
+                            {{-- <button id="button" class="btn btn-alternate" href="#"> Handed Over</button> --}}
+                            {{-- <span class="p-1">|</span> --}}
+                            {{-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Delivered</button> --}}
                         </div>
                         @endcan
                     </div>
@@ -47,12 +51,12 @@
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Phone</th>
-                                        <th>Handed Over?</th>
-                                        <th>Delivered?</th>
+                                        {{-- <th>Handed Over?</th> --}}
+                                        {{-- <th>Delivered?</th> --}}
                                         @if(auth()->user()->can('sale-edit') || auth()->user()->can('sale-delete')|| auth()->user()->can('sale-view'))
                                         <th>Actions</th>
                                         @endif
-                                        <th>Actions</th>
+                                        {{-- <th>Actions</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,8 +70,8 @@
                                         <td>{{ $sale->client_name }}</td>
                                         <td>{{ $sale->client_address }}</td>
                                         <td>{{ $sale->client_phone }}</td>
-                                        <td>{{ ucfirst($sale->handed_over) }}</td>
-                                        <td>{{ ucfirst($sale->delivered ?? 'N/A') }}</td>
+                                        {{-- <td>{{ ucfirst($sale->handed_over) }}</td> --}}
+                                        {{-- <td>{{ ucfirst($sale->delivered ?? 'N/A') }}</td> --}}
                                         @if(auth()->user()->can('sale-edit') || auth()->user()->can('sale-delete')|| auth()->user()->can('sale-view'))
                                         <td>
                                             <a class="btn btn-info btn-sm" href="{{ route('sales.show', $sale->id) }}">View</a>
@@ -81,12 +85,12 @@
                                             @endcan
                                         </td>
                                         @endif
-                                        <td>
+{{--                                         <td>
                                             @if($sale->delivered == 'cancelled')
                                             <a class="btn btn-warning btn-sm" href="{{ route('sales.returned_products', $sale->id) }}">Returned Products</a>
                                             @else
                                             @endif
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -105,7 +109,7 @@
 
 @endsection
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -135,7 +139,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 @section('footer_scripts')
 
@@ -149,72 +153,98 @@
         $('#sales tbody').on( 'click', 'tr', function () {
             $(this).toggleClass('selected');
         });
- 
-        $('#button').click( function () {
-            if(table.rows('.selected').data().length > 0) {
-                var rows = table.rows('.selected').data();
-                var saleIds = [];
 
-                for (i = 0; i < rows.length; i++) {
-                    
+        $('#bulk-delete').click(function() {
+            var rows = table.rows('.selected').data();
+            if(rows.length > 0) {
+                var saleIds = [];
+                for(i = 0; i < rows.length; i++) {
+
                     saleIds.push(rows[i][0]);
                 }
 
-                $.ajax({
-                    type: 'get',
-                    url: '{!!URL::to('update-handling-status')!!}',
-                    data: {'sale_ids': saleIds},
-                    success:function(data){
-                        location.reload();
-                    },
-                    error:function(){
-                        console.log('failure');
-                    }
-                });
-
-            } else {
-                console.log('does not exist');
-            }
-        });
-
-        $('#delivery-submit').click( function () {
-
-            if(table.rows('.selected').data().length > 0) {
-                var rows = table.rows('.selected').data();
-                var saleIds = [];
-
-                for (i = 0; i < rows.length; i++) {
-                    
-                    saleIds.push(rows[i][0]);
-                }
-
-                var status = document.getElementById('delivery-status');
-                var strUser = status.options[status.selectedIndex].value;
+                alert('Deleting invoices: ' + saleIds);
 
                 $.ajax({
                     type: 'get',
-                    url: '{!!URL::to('update-delivery-status')!!}',
+                    url: '{!! URL::to('bulk-delete') !!}',
                     data: {
-                        'sale_ids': saleIds,
-                        'status': strUser,
+                        'sale_ids': saleIds
                     },
-                    success:function(data){
+                    success: function(data) {
                         location.reload();
                     },
-                    error:function(){
-                        console.log('failure');
+                    error: function() {
+                        console.log('failed');
                     }
-                });
-
+                })
             } else {
-                console.log('does not exist');
+                alert('No rows has been selected!')
             }
+        })
+ 
+        // $('#button').click( function () {
+        //     if(table.rows('.selected').data().length > 0) {
+        //         var rows = table.rows('.selected').data();
+        //         var saleIds = [];
 
-            
+        //         for (i = 0; i < rows.length; i++) {
+                    
+        //             saleIds.push(rows[i][0]);
+        //         }
 
+        //         $.ajax({
+        //             type: 'get',
+        //             url: '{!!URL::to('update-handling-status')!!}',
+        //             data: {'sale_ids': saleIds},
+        //             success:function(data){
+        //                 location.reload();
+        //             },
+        //             error:function(){
+        //                 console.log('failure');
+        //             }
+        //         });
 
-        });
-} );
+        //     } else {
+        //         console.log('does not exist');
+        //     }
+        // });
+
+        // $('#delivery-submit').click( function () {
+
+        //     if(table.rows('.selected').data().length > 0) {
+        //         var rows = table.rows('.selected').data();
+        //         var saleIds = [];
+
+        //         for (i = 0; i < rows.length; i++) {
+                    
+        //             saleIds.push(rows[i][0]);
+        //         }
+
+        //         var status = document.getElementById('delivery-status');
+        //         var strUser = status.options[status.selectedIndex].value;
+
+        //         $.ajax({
+        //             type: 'get',
+        //             url: '{!!URL::to('update-delivery-status')!!}',
+        //             data: {
+        //                 'sale_ids': saleIds,
+        //                 'status': strUser,
+        //             },
+        //             success:function(data){
+        //                 location.reload();
+        //             },
+        //             error:function(){
+        //                 console.log('failure');
+        //             }
+        //         });
+
+        //     } else {
+        //         console.log('does not exist');
+        //     }
+
+        // });
+    });
 </script>
 
 @endsection
